@@ -1,0 +1,337 @@
+<abp-page [title]="'Amm::Countries' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Amm.Countries.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Amm::NewCountry' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Amm" [list]="list">
+<!--     <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="countryNameFilter">
+                {{ 'Amm::CountryName' | abpLocalization }}
+              </label>
+
+              <input
+                id="countryNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.countryName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cultureNameFilter">
+                {{ 'Amm::CultureName' | abpLocalization }}
+              </label>
+
+              <input
+                id="cultureNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.cultureName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="currencyFilter">
+                {{ 'Amm::Currency' | abpLocalization }}
+              </label>
+
+              <input
+                id="currencyFilter"
+                class="form-control"
+                [(ngModel)]="filters.currency"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="currencyCodeFilter">
+                {{ 'Amm::CurrencyCode' | abpLocalization }}
+              </label>
+
+              <input
+                id="currencyCodeFilter"
+                class="form-control"
+                [(ngModel)]="filters.currencyCode"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="currencySymbolFilter">
+                {{ 'Amm::CurrencySymbol' | abpLocalization }}
+              </label>
+
+              <input
+                id="currencySymbolFilter"
+                class="form-control"
+                [(ngModel)]="filters.currencySymbol"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="languageNameFilter">
+                {{ 'Amm::LanguageName' | abpLocalization }}
+              </label>
+
+              <input
+                id="languageNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.languageName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="placeIdFilter">
+                {{ 'Amm::PlaceId' | abpLocalization }}
+              </label>
+
+              <input
+                id="placeIdFilter"
+                class="form-control"
+                [(ngModel)]="filters.placeId"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form> -->
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.Countries.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.Countries.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CountryName' | abpLocalization }}" prop="countryName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.countryName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CultureName' | abpLocalization }}" prop="cultureName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cultureName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Currency' | abpLocalization }}" prop="currency">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.currency }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CurrencyCode' | abpLocalization }}" prop="currencyCode">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.currencyCode }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CurrencySymbol' | abpLocalization }}" prop="currencySymbol">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.currencySymbol }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::LanguageName' | abpLocalization }}" prop="languageName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.languageName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+<!--         <ngx-datatable-column name="{{ 'Amm::PlaceId' | abpLocalization }}" prop="placeId">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.placeId }}
+          </ng-template>
+        </ngx-datatable-column> -->
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Amm::NewCountry') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="country-country-name">
+            {{ 'Amm::CountryName' | abpLocalization }} *
+          </label>
+
+          <input
+            id="country-country-name"
+            formControlName="countryName"
+            class="form-control"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="country-culture-name">
+            {{ 'Amm::CultureName' | abpLocalization }} *
+          </label>
+
+          <input
+            id="country-culture-name"
+            formControlName="cultureName"
+            class="form-control"
+            maxlength="10"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="country-currency">
+            {{ 'Amm::Currency' | abpLocalization }} *
+          </label>
+
+          <input
+            id="country-currency"
+            formControlName="currency"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="country-currency-code">
+            {{ 'Amm::CurrencyCode' | abpLocalization }} *
+          </label>
+
+          <input
+            id="country-currency-code"
+            formControlName="currencyCode"
+            class="form-control"
+            maxlength="3"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="country-currency-symbol">
+            {{ 'Amm::CurrencySymbol' | abpLocalization }} *
+          </label>
+
+          <input
+            id="country-currency-symbol"
+            formControlName="currencySymbol"
+            class="form-control"
+            maxlength="10"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="country-language-name">
+            {{ 'Amm::LanguageName' | abpLocalization }} *
+          </label>
+
+          <input
+            id="country-language-name"
+            formControlName="languageName"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="country-place-id">
+            {{ 'Amm::PlaceId' | abpLocalization }} 
+          </label>
+
+          <input
+            id="country-place-id"
+            formControlName="placeId"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

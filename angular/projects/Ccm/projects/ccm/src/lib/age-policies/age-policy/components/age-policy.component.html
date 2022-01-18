@@ -1,0 +1,205 @@
+<abp-page [title]="'Ccm::AgePolicies' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Ccm.AgePolicies.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Ccm::NewAgePolicy' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Ccm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="demoFieldFilter">
+                {{ 'Ccm::DemoField' | abpLocalization }}
+              </label>
+
+              <input
+                id="demoFieldFilter"
+                class="form-control"
+                [(ngModel)]="filters.demoField"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="nameFilter">
+                {{ 'Ccm::MasterData' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="nameFilter"
+                [getFn]="service.getMasterDataLookup"
+                [(ngModel)]="filters.name"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="operatorNameFilter">
+                {{ 'Ccm::Partner' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="operatorNameFilter"
+                [getFn]="service.getPartnerLookup"
+                [(ngModel)]="filters.operatorName"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default [groupRowsBy]="'Partner'"  >
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-group="group" let-i="rowIndex" ngx-datatable-group-header-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.AgePolicies.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.AgePolicies.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+<!--         <ngx-datatable-column name="{{ 'Ccm::DemoField' | abpLocalization }}" prop="agePolicy.demoField">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.agePolicy.demoField }}
+          </ng-template>
+        </ngx-datatable-column> -->
+
+        <ngx-datatable-column name="{{ 'Ccm::MasterData' | abpLocalization }}" prop="masterData.name">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.masterData?.name }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Partner' | abpLocalization }}" prop="partner.partnerName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner?.partnerName }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Ccm::NewAgePolicy') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="age-policy-demo-field">
+            {{ 'Ccm::DemoField' | abpLocalization }} 
+          </label>
+
+          <input
+            id="age-policy-demo-field"
+            formControlName="demoField"
+            class="form-control"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="age-policy-name">
+            {{ 'Ccm::MasterData' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="age-policy-name"
+            formControlName="name"
+            [getFn]="service.getMasterDataLookup"
+          ></abp-lookup-select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="age-policy-operator-name">
+            {{ 'Ccm::Partner' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="age-policy-operator-name"
+            formControlName="operatorName"
+            [getFn]="service.getPartnerLookup"
+          ></abp-lookup-select>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

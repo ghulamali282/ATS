@@ -1,0 +1,338 @@
+<abp-page [title]="'Ccm::Departures' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Ccm.Departures.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Ccm::NewDeparture' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+<div class="card">
+  <div class="card-body">
+    <form #filterForm (keyup.enter)="list.get()">
+      <div class="col-12 col-sm-auto">
+        <div class="mb-3">
+          <label class="form-label" for="partnerFilter">
+            {{ 'Ccm::Partner' | abpLocalization }}
+          </label>
+          <abp-lookup-select
+            cid="partnerFilter"
+            [getFn]="service.getPartnerLookup"
+            [(ngModel)]="filters.partner"
+            [ngModelOptions]="{ standalone: true }"
+          ></abp-lookup-select>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--
+  <abp-advanced-entity-filters localizationSourceName="Ccm"  [list]="list">
+     <abp-advanced-entity-filters-form>
+           <form #filterForm (keyup.enter)="list.get()">
+         <div class="row">
+                <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="departuresArrayFilter">
+                {{ 'Ccm::DeparturesArray' | abpLocalization }}
+              </label>
+
+              <input
+                id="departuresArrayFilter"
+                class="form-control"
+                [(ngModel)]="filters.departuresArray"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="seasonGroupFilter">
+                {{ 'Ccm::SeasonGroup' | abpLocalization }}
+              </label>
+
+              <input
+                id="seasonGroupFilter"
+                class="form-control"
+                [(ngModel)]="filters.seasonGroup"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="partnerFilter">
+                {{ 'Ccm::Partner' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="partnerFilter"
+                [getFn]="service.getPartnerLookup"
+                [(ngModel)]="filters.partner"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="seasonNameFilter">
+                {{ 'Ccm::DepartureSeason' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="seasonNameFilter"
+                [getFn]="service.getDepartureSeasonLookup"
+                [(ngModel)]="filters.seasonName"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </form> 
+    </abp-advanced-entity-filters-form> 
+  </abp-advanced-entity-filters>-->
+  <div class="row">
+    <div class="col-12 col-md-5 mb-2 mb-md-0">
+      <div class="card">
+      <div class="card-body"></div>     
+    </div></div>
+    <div class="col-12 col-md-7"> 
+      <div class="card">
+      <div class="card-body">      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.Departures.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.Departures.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::DeparturesArray' | abpLocalization }}" prop="departure.departuresArray">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.departure.departuresArray }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::SeasonGroup' | abpLocalization }}" prop="departure.seasonGroup">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.departure.seasonGroup }}
+          </ng-template>
+        </ngx-datatable-column>
+
+<!--         <ngx-datatable-column name="{{ 'Ccm::Partner' | abpLocalization }}" prop="partner.partnerName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner?.partnerName }}
+          </ng-template>
+        </ngx-datatable-column> -->
+
+<!--         <ngx-datatable-column name="{{ 'Ccm::DepartureSeason' | abpLocalization }}" prop="departureSeason.seasonName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.departureSeason?.seasonName }}
+          </ng-template>
+        </ngx-datatable-column> -->
+      </ngx-datatable></div>     
+    </div></div>
+  </div> 
+   
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.Departures.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.Departures.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::DeparturesArray' | abpLocalization }}" prop="departure.departuresArray">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.departure.departuresArray }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::SeasonGroup' | abpLocalization }}" prop="departure.seasonGroup">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.departure.seasonGroup }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Partner' | abpLocalization }}" prop="partner.partnerName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner?.partnerName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::DepartureSeason' | abpLocalization }}" prop="departureSeason.seasonName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.departureSeason?.seasonName }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy"  [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Ccm::NewDeparture') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+
+        <div class="mb-3">
+          <label class="form-label" for="departure-season-name">
+            {{ 'Ccm::DepartureSeason' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="departure-season-name"
+            formControlName="seasonName"
+            [getFn]="service.getDepartureSeasonLookup"
+          ></abp-lookup-select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="departure-partner">
+            {{ 'Ccm::Partner' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="departure-partner"
+            formControlName="partner"
+            [getFn]="service.getPartnerLookup"
+          ></abp-lookup-select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="departure-season-group">
+            {{ 'Ccm::SeasonGroup' | abpLocalization }} *
+          </label>
+
+          <input
+            id="departure-season-group"
+            formControlName="seasonGroup"
+            class="form-control"
+            maxlength="1"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="departure-departures-array">
+            {{ 'Ccm::DeparturesArray' | abpLocalization }} *
+          </label>
+
+          <input
+            id="departure-departures-array"
+            formControlName="departuresArray"
+            class="form-control"
+            autofocus
+          />
+        </div>
+        <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-listbox>
+        
+
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

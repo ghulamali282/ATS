@@ -1,0 +1,69 @@
+{
+  "Id": "b09a2921-4381-4884-886b-e6d4322f5d9f",
+  "Name": "AgePolicy",
+  "OriginalName": "AgePolicy",
+  "NamePlural": "AgePolicies",
+  "DatabaseTableName": "AgePolicies",
+  "Namespace": "AgePolicies",
+  "BaseClass": "Entity",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": true,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": false,
+  "Properties": [
+    {
+      "Id": "bdddfcd1-56af-4e50-9056-14d3913b2527",
+      "Name": "DemoField",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "IsNullable": false,
+      "IsRequired": false,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "Namespace": "Ccm.MasterDatas",
+      "EntityName": "MasterData",
+      "EntityNameWithDuplicationNumber": "MasterData",
+      "EntitySetNameWithDuplicationNumber": "MasterDatas",
+      "EntitySetName": "MasterDatas",
+      "DtoNamespace": "Ccm.MasterDatas",
+      "DtoEntityName": "MasterDataDto",
+      "Type": "Guid",
+      "Name": "Name",
+      "ReferencePropertyName": "Name",
+      "DisplayProperty": "Name",
+      "UiPickType": "Dropdown",
+      "IsRequired": true
+    },
+    {
+      "Namespace": "Ccm.Partners",
+      "EntityName": "Partner",
+      "EntityNameWithDuplicationNumber": "Partner",
+      "EntitySetNameWithDuplicationNumber": "Partners",
+      "EntitySetName": "Partners",
+      "DtoNamespace": "Ccm.Partners",
+      "DtoEntityName": "PartnerDto",
+      "Type": "Guid",
+      "Name": "OperatorName",
+      "ReferencePropertyName": "OperatorName",
+      "DisplayProperty": "PartnerName",
+      "UiPickType": "Dropdown",
+      "IsRequired": true
+    }
+  ],
+  "PhysicalFileName": "AgePolicy.json"
+}

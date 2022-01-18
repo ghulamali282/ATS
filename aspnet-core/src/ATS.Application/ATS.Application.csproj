@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>ATS</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ATS.Domain\ATS.Domain.csproj" />
+    <ProjectReference Include="..\ATS.Application.Contracts\ATS.Application.Contracts.csproj" />
+  <ProjectReference Include="..\..\modules\Amm\src\Amm.Application\Amm.Application.csproj" /><ProjectReference Include="..\..\modules\Ccm\src\Ccm.Application\Ccm.Application.csproj" /><ProjectReference Include="..\..\modules\Crm\src\Crm.Application\Crm.Application.csproj" /></ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Saas.Host.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.AuditLogging.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.Identity.Pro.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.IdentityServer.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.Account.Pro.Public.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.Account.Pro.Admin.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.LanguageManagement.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.TextTemplateManagement.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.LeptonTheme.Management.Application" Version="5.0.0" />
+    <PackageReference Include="Volo.CmsKit.Pro.Application" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>

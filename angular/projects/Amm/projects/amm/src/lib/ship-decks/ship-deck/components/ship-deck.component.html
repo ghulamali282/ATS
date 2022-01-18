@@ -1,0 +1,258 @@
+<abp-page [title]="'Amm::ShipDecks' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Amm.ShipDecks.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Amm::NewShipDeck' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Amm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipDeckNameTEMPFilter">
+                {{ 'Amm::ShipDeckNameTEMP' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipDeckNameTEMPFilter"
+                class="form-control"
+                [(ngModel)]="filters.shipDeckNameTEMP"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minSortOrder">
+                {{ 'Amm::MinSortOrder' | abpLocalization }}
+              </label>
+
+              <input
+                id="minSortOrder"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.sortOrderMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxSortOrder">
+                {{ 'Amm::MaxSortOrder' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxSortOrder"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.sortOrderMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipFilter">
+                {{ 'Amm::Ship' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipFilter"
+                class="form-control"
+                [(ngModel)]="filters.ship"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="deckFilter">
+                {{ 'Amm::MasterData' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="deckFilter"
+                [getFn]="service.getMasterDataLookup"
+                [(ngModel)]="filters.deck"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.ShipDecks.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.ShipDecks.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::ShipDeckNameTEMP' | abpLocalization }}" prop="shipDeck.shipDeckNameTEMP">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.shipDeck.shipDeckNameTEMP }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::SortOrder' | abpLocalization }}" prop="shipDeck.sortOrder">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.shipDeck.sortOrder }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Ship' | abpLocalization }}" prop="shipDeck.ship">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.shipDeck.ship }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::MasterData' | abpLocalization }}" prop="masterData.name">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.masterData?.name }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Amm::NewShipDeck') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+
+        <div class="mb-3">
+          <label class="form-label" for="ship-deck-deck">
+            {{ 'Amm::Deck' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="ship-deck-deck"
+            formControlName="deck"
+            [getFn]="service.getMasterDataLookup"
+          ></abp-lookup-select>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label" for="ship-deck-ship-deck-name-temp">
+            {{ 'Amm::ShipDeckNameTEMP' | abpLocalization }} *
+          </label>
+
+          <input
+            id="ship-deck-ship-deck-name-temp"
+            formControlName="shipDeckNameTEMP"
+            class="form-control"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="ship-deck-sort-order">
+            {{ 'Amm::SortOrder' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="ship-deck-sort-order"
+            formControlName="sortOrder"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="ship-deck-ship">
+            {{ 'Amm::Ship' | abpLocalization }} *
+          </label>
+
+          <input
+            id="ship-deck-ship"
+            formControlName="ship"
+            class="form-control"
+          />
+        </div>
+
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

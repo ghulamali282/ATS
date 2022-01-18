@@ -1,0 +1,38 @@
+{
+  "Id": "1e7d6e6e-5b21-4a70-839c-f7bc53a309c4",
+  "Name": "Partner",
+  "OriginalName": "Partner",
+  "NamePlural": "Partners",
+  "DatabaseTableName": "Partners",
+  "Namespace": "Partners",
+  "BaseClass": "Entity",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": false,
+  "ShouldCreateUserInterface": false,
+  "ShouldCreateBackend": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": false,
+  "Properties": [
+    {
+      "Id": "6185edd0-15e1-4bc8-beff-a9b653539756",
+      "Name": "PartnerName",
+      "Type": "string",
+      "EnumType": null,
+      "EnumNamespace": null,
+      "EnumAngularImport": null,
+      "IsNullable": false,
+      "IsRequired": true,
+      "MinLength": null,
+      "MaxLength": 100,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": null,
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    }
+  ],
+  "NavigationProperties": [],
+  "PhysicalFileName": "Partner.json"
+}

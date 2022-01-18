@@ -1,0 +1,413 @@
+<abp-page [title]="'Ccm::Ships' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Ccm.Ships.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Ccm::NewShip' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Ccm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipNameFilter">
+                {{ 'Ccm::ShipName' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.shipName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipCategoryFilter">
+                {{ 'Ccm::ShipCategory' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipCategoryFilter"
+                class="form-control"
+                [(ngModel)]="filters.shipCategory"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipOperatorFilter">
+                {{ 'Ccm::ShipOperator' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipOperatorFilter"
+                class="form-control"
+                [(ngModel)]="filters.shipOperator"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="typeFilter">
+                {{ 'Ccm::Type' | abpLocalization }}
+              </label>
+
+              <input
+                id="typeFilter"
+                class="form-control"
+                [(ngModel)]="filters.type"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="flagFilter">
+                {{ 'Ccm::Flag' | abpLocalization }}
+              </label>
+
+              <input
+                id="flagFilter"
+                class="form-control"
+                [(ngModel)]="filters.flag"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="homePortFilter">
+                {{ 'Ccm::HomePort' | abpLocalization }}
+              </label>
+
+              <input
+                id="homePortFilter"
+                class="form-control"
+                [(ngModel)]="filters.homePort"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="manufacturerFilter">
+                {{ 'Ccm::Manufacturer' | abpLocalization }}
+              </label>
+
+              <input
+                id="manufacturerFilter"
+                class="form-control"
+                [(ngModel)]="filters.manufacturer"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="modelFilter">
+                {{ 'Ccm::Model' | abpLocalization }}
+              </label>
+
+              <input
+                id="modelFilter"
+                class="form-control"
+                [(ngModel)]="filters.model"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minYearBuild">
+                {{ 'Ccm::MinYearBuild' | abpLocalization }}
+              </label>
+
+              <input
+                id="minYearBuild"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.yearBuildMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxYearBuild">
+                {{ 'Ccm::MaxYearBuild' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxYearBuild"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.yearBuildMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.Ships.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.Ships.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::ShipName' | abpLocalization }}" prop="shipName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.shipName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::ShipCategory' | abpLocalization }}" prop="shipCategory">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.shipCategory }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::ShipOperator' | abpLocalization }}" prop="shipOperator">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.shipOperator }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Type' | abpLocalization }}" prop="type">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.type }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Flag' | abpLocalization }}" prop="flag">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.flag }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::HomePort' | abpLocalization }}" prop="homePort">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.homePort }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Manufacturer' | abpLocalization }}" prop="manufacturer">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.manufacturer }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Model' | abpLocalization }}" prop="model">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.model }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::YearBuild' | abpLocalization }}" prop="yearBuild">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.yearBuild }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Ccm::NewShip') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="ship-ship-name">
+            {{ 'Ccm::ShipName' | abpLocalization }} *
+          </label>
+
+          <input
+            id="ship-ship-name"
+            formControlName="shipName"
+            class="form-control"
+            maxlength="50"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="ship-ship-category">
+            {{ 'Ccm::ShipCategory' | abpLocalization }} *
+          </label>
+
+          <input
+            id="ship-ship-category"
+            formControlName="shipCategory"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="ship-ship-operator">
+            {{ 'Ccm::ShipOperator' | abpLocalization }} 
+          </label>
+
+          <input
+            id="ship-ship-operator"
+            formControlName="shipOperator"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="ship-type">
+            {{ 'Ccm::Type' | abpLocalization }} 
+          </label>
+
+          <input
+            id="ship-type"
+            formControlName="type"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="ship-flag">
+            {{ 'Ccm::Flag' | abpLocalization }} *
+          </label>
+
+          <input
+            id="ship-flag"
+            formControlName="flag"
+            class="form-control"
+            maxlength="2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="ship-home-port">
+            {{ 'Ccm::HomePort' | abpLocalization }} *
+          </label>
+
+          <input
+            id="ship-home-port"
+            formControlName="homePort"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="ship-manufacturer">
+            {{ 'Ccm::Manufacturer' | abpLocalization }} 
+          </label>
+
+          <input
+            id="ship-manufacturer"
+            formControlName="manufacturer"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="ship-model">
+            {{ 'Ccm::Model' | abpLocalization }} 
+          </label>
+
+          <input
+            id="ship-model"
+            formControlName="model"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="ship-year-build">
+            {{ 'Ccm::YearBuild' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="ship-year-build"
+            formControlName="yearBuild"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.prod.json",
+  "compilerOptions": {
+    "paths": {
+      "@ccm": [
+        "projects/ccm/src/public-api.ts"
+      ],
+      "@ccm/config": [
+        "projects/ccm/config/src/public-api.ts"
+      ],
+      "@proxy": ["projects/ccm/src/lib/proxy/index.ts"],
+      "@proxy/*": ["projects/ccm/src/lib/proxy/*"]
+    }
+  }
+}

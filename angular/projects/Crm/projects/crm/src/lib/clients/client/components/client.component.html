@@ -1,0 +1,1038 @@
+<abp-page [title]="'Crm::Clients' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Crm.Clients.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Crm::NewClient' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Crm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="titleFilter">
+                {{ 'Crm::Title' | abpLocalization }}
+              </label>
+
+              <input
+                id="titleFilter"
+                class="form-control"
+                [(ngModel)]="filters.title"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="firstNameFilter">
+                {{ 'Crm::FirstName' | abpLocalization }}
+              </label>
+
+              <input
+                id="firstNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.firstName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="secondNameFilter">
+                {{ 'Crm::SecondName' | abpLocalization }}
+              </label>
+
+              <input
+                id="secondNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.secondName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="genderFilter">
+                {{ 'Crm::Gender' | abpLocalization }}
+              </label>
+
+              <input
+                id="genderFilter"
+                class="form-control"
+                [(ngModel)]="filters.gender"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minClientDOB">
+                  {{ 'Crm::MinClientDOB' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="minClientDOB"
+                  class="form-control"
+                  #minClientDOBInput
+                  #minClientDOBDatepicker="ngbDatepicker"
+                  name="minClientDOB"
+                  ngbDatepicker
+                  container="body"
+                  readonly
+                  (click)="minClientDOBDatepicker.toggle()"
+                  (keyup.space)="minClientDOBDatepicker.toggle()"
+                  [(ngModel)]="filters.clientDOBMin"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="minClientDOBInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="minClientDOBDatepicker.writeValue(null); minClientDOBDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxClientDOB">
+                {{ 'Crm::MaxClientDOB' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="maxClientDOB"
+                  class="form-control"
+                  #maxClientDOBInput
+                  #maxClientDOBDatepicker="ngbDatepicker"
+                  name="maxClientDOB"
+                  ngbDatepicker
+                  readonly
+                  (click)="maxClientDOBDatepicker.toggle()"
+                  (keyup.space)="maxClientDOBDatepicker.toggle()"
+                  [(ngModel)]="filters.clientDOBMax"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="maxClientDOBInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="maxClientDOBDatepicker.writeValue(null); maxClientDOBDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="agePolicyFilter">
+                {{ 'Crm::AgePolicy' | abpLocalization }}
+              </label>
+
+              <input
+                id="agePolicyFilter"
+                class="form-control"
+                [(ngModel)]="filters.agePolicy"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="emailFilter">
+                {{ 'Crm::Email' | abpLocalization }}
+              </label>
+
+              <input
+                id="emailFilter"
+                class="form-control"
+                [(ngModel)]="filters.email"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="emailConfirmedFilter">
+                  {{ 'Crm::EmailConfirmed' | abpLocalization }}
+              </label>
+
+              <select
+                name="emailConfirmed"
+                id="emailConfirmedFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.emailConfirmed"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="countryFilter">
+                {{ 'Crm::Country' | abpLocalization }}
+              </label>
+
+              <input
+                id="countryFilter"
+                class="form-control"
+                [(ngModel)]="filters.country"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="nacionalityFilter">
+                {{ 'Crm::Nacionality' | abpLocalization }}
+              </label>
+
+              <input
+                id="nacionalityFilter"
+                class="form-control"
+                [(ngModel)]="filters.nacionality"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="stateFilter">
+                {{ 'Crm::State' | abpLocalization }}
+              </label>
+
+              <input
+                id="stateFilter"
+                class="form-control"
+                [(ngModel)]="filters.state"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="zipCodeFilter">
+                {{ 'Crm::ZipCode' | abpLocalization }}
+              </label>
+
+              <input
+                id="zipCodeFilter"
+                class="form-control"
+                [(ngModel)]="filters.zipCode"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cityFilter">
+                {{ 'Crm::City' | abpLocalization }}
+              </label>
+
+              <input
+                id="cityFilter"
+                class="form-control"
+                [(ngModel)]="filters.city"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cellPhoneFilter">
+                {{ 'Crm::CellPhone' | abpLocalization }}
+              </label>
+
+              <input
+                id="cellPhoneFilter"
+                class="form-control"
+                [(ngModel)]="filters.cellPhone"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cellPhoneConfirmedFilter">
+                  {{ 'Crm::CellPhoneConfirmed' | abpLocalization }}
+              </label>
+
+              <select
+                name="cellPhoneConfirmed"
+                id="cellPhoneConfirmedFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.cellPhoneConfirmed"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="documentTypeFilter">
+                {{ 'Crm::DocumentType' | abpLocalization }}
+              </label>
+
+              <input
+                id="documentTypeFilter"
+                class="form-control"
+                [(ngModel)]="filters.documentType"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="documentNoFilter">
+                {{ 'Crm::DocumentNo' | abpLocalization }}
+              </label>
+
+              <input
+                id="documentNoFilter"
+                class="form-control"
+                [(ngModel)]="filters.documentNo"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minIssueDate">
+                  {{ 'Crm::MinIssueDate' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="minIssueDate"
+                  class="form-control"
+                  #minIssueDateInput
+                  #minIssueDateDatepicker="ngbDatepicker"
+                  name="minIssueDate"
+                  ngbDatepicker
+                  container="body"
+                  readonly
+                  (click)="minIssueDateDatepicker.toggle()"
+                  (keyup.space)="minIssueDateDatepicker.toggle()"
+                  [(ngModel)]="filters.issueDateMin"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="minIssueDateInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="minIssueDateDatepicker.writeValue(null); minIssueDateDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxIssueDate">
+                {{ 'Crm::MaxIssueDate' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="maxIssueDate"
+                  class="form-control"
+                  #maxIssueDateInput
+                  #maxIssueDateDatepicker="ngbDatepicker"
+                  name="maxIssueDate"
+                  ngbDatepicker
+                  readonly
+                  (click)="maxIssueDateDatepicker.toggle()"
+                  (keyup.space)="maxIssueDateDatepicker.toggle()"
+                  [(ngModel)]="filters.issueDateMax"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="maxIssueDateInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="maxIssueDateDatepicker.writeValue(null); maxIssueDateDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minExpiration">
+                  {{ 'Crm::MinExpiration' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="minExpiration"
+                  class="form-control"
+                  #minExpirationInput
+                  #minExpirationDatepicker="ngbDatepicker"
+                  name="minExpiration"
+                  ngbDatepicker
+                  container="body"
+                  readonly
+                  (click)="minExpirationDatepicker.toggle()"
+                  (keyup.space)="minExpirationDatepicker.toggle()"
+                  [(ngModel)]="filters.expirationMin"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="minExpirationInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="minExpirationDatepicker.writeValue(null); minExpirationDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxExpiration">
+                {{ 'Crm::MaxExpiration' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="maxExpiration"
+                  class="form-control"
+                  #maxExpirationInput
+                  #maxExpirationDatepicker="ngbDatepicker"
+                  name="maxExpiration"
+                  ngbDatepicker
+                  readonly
+                  (click)="maxExpirationDatepicker.toggle()"
+                  (keyup.space)="maxExpirationDatepicker.toggle()"
+                  [(ngModel)]="filters.expirationMax"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="maxExpirationInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="maxExpirationDatepicker.writeValue(null); maxExpirationDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="mailingListFilter">
+                  {{ 'Crm::MailingList' | abpLocalization }}
+              </label>
+
+              <select
+                name="mailingList"
+                id="mailingListFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.mailingList"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Crm.Clients.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Crm.Clients.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Title' | abpLocalization }}" prop="title">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.title }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::FirstName' | abpLocalization }}" prop="firstName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.firstName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::SecondName' | abpLocalization }}" prop="secondName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.secondName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Gender' | abpLocalization }}" prop="gender">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.gender }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::ClientDOB' | abpLocalization }}" prop="clientDOB">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.clientDOB | date }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::AgePolicy' | abpLocalization }}" prop="agePolicy">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.agePolicy }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Email' | abpLocalization }}" prop="email">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.email }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::EmailConfirmed' | abpLocalization }}" prop="emailConfirmed">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.emailConfirmed" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Country' | abpLocalization }}" prop="country">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.country }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Nacionality' | abpLocalization }}" prop="nacionality">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.nacionality }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::State' | abpLocalization }}" prop="state">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.state }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::ZipCode' | abpLocalization }}" prop="zipCode">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.zipCode }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::City' | abpLocalization }}" prop="city">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.city }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::CellPhone' | abpLocalization }}" prop="cellPhone">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cellPhone }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::CellPhoneConfirmed' | abpLocalization }}" prop="cellPhoneConfirmed">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.cellPhoneConfirmed" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::DocumentType' | abpLocalization }}" prop="documentType">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.documentType }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::DocumentNo' | abpLocalization }}" prop="documentNo">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.documentNo }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::IssueDate' | abpLocalization }}" prop="issueDate">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.issueDate | date }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Expiration' | abpLocalization }}" prop="expiration">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.expiration | date }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::MailingList' | abpLocalization }}" prop="mailingList">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.mailingList" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Crm::NewClient') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="client-title">
+            {{ 'Crm::Title' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-title"
+            formControlName="title"
+            class="form-control"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-first-name">
+            {{ 'Crm::FirstName' | abpLocalization }} *
+          </label>
+
+          <input
+            id="client-first-name"
+            formControlName="firstName"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-second-name">
+            {{ 'Crm::SecondName' | abpLocalization }} *
+          </label>
+
+          <input
+            id="client-second-name"
+            formControlName="secondName"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-gender">
+            {{ 'Crm::Gender' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-gender"
+            formControlName="gender"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-client-dob">
+            {{ 'Crm::ClientDOB' | abpLocalization }} 
+          </label>
+
+          <div class="input-group" validationTarget>
+            <input
+              readonly
+              id="client-client-dob"
+              formControlName="clientDOB"
+              class="form-control"
+              ngbDatepicker
+              #clientDOBInput
+              #clientDOBDatepicker="ngbDatepicker"
+              (click)="clientDOBDatepicker.open()"
+              (keyup.space)="clientDOBDatepicker.open()"
+            />
+            <div *ngIf="clientDOBInput.value" class="input-group-append">
+              <button
+                class="btn btn-link px-2"
+                type="button"
+                [title]="'AbpUi::Clear' | abpLocalization"
+                (click)="clientDOBDatepicker.writeValue(null); clientDOBDatepicker.manualDateChange(null, true)"
+              >
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-age-policy">
+            {{ 'Crm::AgePolicy' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-age-policy"
+            formControlName="agePolicy"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-email">
+            {{ 'Crm::Email' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-email"
+            formControlName="email"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="client-email-confirmed"
+            formControlName="emailConfirmed"
+            class="form-check-input"
+          />
+
+          <label
+            for="client-email-confirmed"
+            class="form-check-label"
+          >
+              {{ 'Crm::EmailConfirmed' | abpLocalization }} 
+          </label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-country">
+            {{ 'Crm::Country' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-country"
+            formControlName="country"
+            class="form-control"
+            maxlength="2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-nacionality">
+            {{ 'Crm::Nacionality' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-nacionality"
+            formControlName="nacionality"
+            class="form-control"
+            maxlength="2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-state">
+            {{ 'Crm::State' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-state"
+            formControlName="state"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-zip-code">
+            {{ 'Crm::ZipCode' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-zip-code"
+            formControlName="zipCode"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-city">
+            {{ 'Crm::City' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-city"
+            formControlName="city"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-cell-phone">
+            {{ 'Crm::CellPhone' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-cell-phone"
+            formControlName="cellPhone"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="client-cell-phone-confirmed"
+            formControlName="cellPhoneConfirmed"
+            class="form-check-input"
+          />
+
+          <label
+            for="client-cell-phone-confirmed"
+            class="form-check-label"
+          >
+              {{ 'Crm::CellPhoneConfirmed' | abpLocalization }} 
+          </label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-document-type">
+            {{ 'Crm::DocumentType' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-document-type"
+            formControlName="documentType"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-document-no">
+            {{ 'Crm::DocumentNo' | abpLocalization }} 
+          </label>
+
+          <input
+            id="client-document-no"
+            formControlName="documentNo"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-issue-date">
+            {{ 'Crm::IssueDate' | abpLocalization }} 
+          </label>
+
+          <div class="input-group" validationTarget>
+            <input
+              readonly
+              id="client-issue-date"
+              formControlName="issueDate"
+              class="form-control"
+              ngbDatepicker
+              #issueDateInput
+              #issueDateDatepicker="ngbDatepicker"
+              (click)="issueDateDatepicker.open()"
+              (keyup.space)="issueDateDatepicker.open()"
+            />
+            <div *ngIf="issueDateInput.value" class="input-group-append">
+              <button
+                class="btn btn-link px-2"
+                type="button"
+                [title]="'AbpUi::Clear' | abpLocalization"
+                (click)="issueDateDatepicker.writeValue(null); issueDateDatepicker.manualDateChange(null, true)"
+              >
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="client-expiration">
+            {{ 'Crm::Expiration' | abpLocalization }} 
+          </label>
+
+          <div class="input-group" validationTarget>
+            <input
+              readonly
+              id="client-expiration"
+              formControlName="expiration"
+              class="form-control"
+              ngbDatepicker
+              #expirationInput
+              #expirationDatepicker="ngbDatepicker"
+              (click)="expirationDatepicker.open()"
+              (keyup.space)="expirationDatepicker.open()"
+            />
+            <div *ngIf="expirationInput.value" class="input-group-append">
+              <button
+                class="btn btn-link px-2"
+                type="button"
+                [title]="'AbpUi::Clear' | abpLocalization"
+                (click)="expirationDatepicker.writeValue(null); expirationDatepicker.manualDateChange(null, true)"
+              >
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="client-mailing-list"
+            formControlName="mailingList"
+            class="form-check-input"
+          />
+
+          <label
+            for="client-mailing-list"
+            class="form-check-label"
+          >
+              {{ 'Crm::MailingList' | abpLocalization }} *
+          </label>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

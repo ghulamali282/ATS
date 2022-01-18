@@ -1,0 +1,38 @@
+{
+  "Id": "be17e2ab-84a1-4cd8-9afe-a2c943a7d611",
+  "Name": "Destination",
+  "OriginalName": "Destination",
+  "NamePlural": "Destinations",
+  "DatabaseTableName": "Destinations",
+  "Namespace": "Destinations",
+  "BaseClass": "Entity",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": true,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": false,
+  "Properties": [
+    {
+      "Id": "3d87e9f5-18eb-4c49-8dca-360332741fd2",
+      "Name": "City",
+      "Type": "string",
+      "EnumType": null,
+      "EnumNamespace": null,
+      "EnumAngularImport": null,
+      "IsNullable": false,
+      "IsRequired": true,
+      "MinLength": null,
+      "MaxLength": 128,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": null,
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    }
+  ],
+  "NavigationProperties": [],
+  "PhysicalFileName": "Destination.json"
+}

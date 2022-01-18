@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>ATS</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ATS.Application.Contracts\ATS.Application.Contracts.csproj" />
+  <ProjectReference Include="..\..\modules\Amm\src\Amm.HttpApi\Amm.HttpApi.csproj" /><ProjectReference Include="..\..\modules\Ccm\src\Ccm.HttpApi\Ccm.HttpApi.csproj" /><ProjectReference Include="..\..\modules\Crm\src\Crm.HttpApi\Crm.HttpApi.csproj" /></ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.SettingManagement.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.AuditLogging.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.Identity.Pro.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.Account.Pro.Admin.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.Account.Pro.Public.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.IdentityServer.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.LanguageManagement.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Saas.Host.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.LeptonTheme.Management.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.Abp.TextTemplateManagement.HttpApi" Version="5.0.0" />
+    <PackageReference Include="Volo.CmsKit.Pro.HttpApi" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>

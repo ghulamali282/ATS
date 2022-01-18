@@ -1,0 +1,370 @@
+<abp-page [title]="'Amm::Destinations' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Amm.Destinations.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Amm::NewDestination' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Amm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cityFilter">
+                {{ 'Amm::City' | abpLocalization }}
+              </label>
+
+              <input
+                id="cityFilter"
+                class="form-control"
+                [(ngModel)]="filters.city"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+         <!--  <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cityLocalNameFilter">
+                {{ 'Amm::CityLocalName' | abpLocalization }}
+              </label>
+
+              <input
+                id="cityLocalNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.cityLocalName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minlatitude">
+                {{ 'Amm::Minlatitude' | abpLocalization }}
+              </label>
+
+              <input
+                id="minlatitude"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.latitudeMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxlatitude">
+                {{ 'Amm::Maxlatitude' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxlatitude"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.latitudeMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minlongitude">
+                {{ 'Amm::Minlongitude' | abpLocalization }}
+              </label>
+
+              <input
+                id="minlongitude"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.longitudeMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxlongitude">
+                {{ 'Amm::Maxlongitude' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxlongitude"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.longitudeMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="videoUrlFilter">
+                {{ 'Amm::VideoUrl' | abpLocalization }}
+              </label>
+
+              <input
+                id="videoUrlFilter"
+                class="form-control"
+                [(ngModel)]="filters.videoUrl"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="placeIdFilter">
+                {{ 'Amm::PlaceId' | abpLocalization }}
+              </label>
+
+              <input
+                id="placeIdFilter"
+                class="form-control"
+                [(ngModel)]="filters.placeId"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div> 
+          </div>-->
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="destCountryFilter">
+                {{ 'Amm::Country' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="destCountryFilter"
+                [getFn]="service.getCountryLookup"
+                [(ngModel)]="filters.destCountry"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.Destinations.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.Destinations.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::City' | abpLocalization }}" prop="destination.city">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.destination.city }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CityLocalName' | abpLocalization }}" prop="destination.cityLocalName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.destination.cityLocalName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::latitude' | abpLocalization }}" prop="destination.latitude">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.destination.latitude }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::longitude' | abpLocalization }}" prop="destination.longitude">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.destination.longitude }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::VideoUrl' | abpLocalization }}" prop="destination.videoUrl">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.destination.videoUrl }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::PlaceId' | abpLocalization }}" prop="destination.placeId">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.destination.placeId }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Country' | abpLocalization }}" prop="country.countryName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.country?.countryName }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Amm::NewDestination') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="destination-city">
+            {{ 'Amm::City' | abpLocalization }} *
+          </label>
+
+          <input
+            id="destination-city"
+            formControlName="city"
+            class="form-control"
+            maxlength="128"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="destination-city-local-name">
+            {{ 'Amm::CityLocalName' | abpLocalization }} *
+          </label>
+
+          <input
+            id="destination-city-local-name"
+            formControlName="cityLocalName"
+            class="form-control"
+            maxlength="128"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="destination-latitude">
+            {{ 'Amm::latitude' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="destination-latitude"
+            formControlName="latitude"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="destination-longitude">
+            {{ 'Amm::longitude' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="destination-longitude"
+            formControlName="longitude"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="destination-video-url">
+            {{ 'Amm::VideoUrl' | abpLocalization }} 
+          </label>
+
+          <input
+            id="destination-video-url"
+            formControlName="videoUrl"
+            class="form-control"
+            maxlength="500"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="destination-place-id">
+            {{ 'Amm::PlaceId' | abpLocalization }} *
+          </label>
+
+          <input
+            id="destination-place-id"
+            formControlName="placeId"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="destination-dest-country">
+            {{ 'Amm::Country' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="destination-dest-country"
+            formControlName="destCountry"
+            [getFn]="service.getCountryLookup"
+          ></abp-lookup-select>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

@@ -1,0 +1,238 @@
+<abp-page [title]="'::MasterDatas' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Ccm.MasterDatas.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ '::NewMasterData' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <ul class="nav nav-tabs">
+    <li *ngFor="let option of data.items" class="nav-item">
+      <a class="nav-link" href="#">{{ option.name }}</a>
+    </li>
+  </ul>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-md-2 mb-2 mb-md-0">
+          <ng-container *ngIf="isHost">
+            <button
+              *abpPermission="'Ccm.MasterDatas.Create'"
+              class="btn btn-primary btn-md"
+              type="button"
+              (click)="create()"
+            >
+              <i class="fa fa-plus me-1" aria-hidden="true"></i>
+              {{ '::NewMasterData' | abpLocalization }}
+            </button>
+          </ng-container>
+          <ul *ngFor="let option of data.items" class="nav flex-column nav-pills">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">{{ option.name }}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-10">
+          <div class="card">
+            <div class="card-body">
+              <ngx-datatable
+                [rows]="data.items"
+                [count]="data.totalCount"
+                [list]="list"
+                default
+                [headerHeight]="0"
+                [footerHeight]="0"
+              >
+                <ngx-datatable-column
+                  [checkboxable]="true"
+                  name="{{ '::Name' | abpLocalization }}"
+                  prop="name"
+                >
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{ row.name }} {{ row.value }}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [maxWidth]="50" [width]="50">
+                  <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <span style="color: Mediumslateblue">
+                      <i class="fas fa-caret-square-up fa-lg"></i>
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [maxWidth]="50" [width]="50">
+                  <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                    <span style="color: Mediumslateblue">
+                      <i class="fas fa-caret-square-down fa-lg"></i>
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+    <ng-template #abpHeader>
+      <h3>
+        {{ (selected ? 'AbpUi::Edit' : '::NewMasterData') | abpLocalization }}
+      </h3>
+    </ng-template>
+
+    <ng-template #abpBody>
+      <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+        <div class="mt-2 fade-in-top">
+          <div class="mb-3">
+            <label class="form-label" for="master-data-parent-id">
+              {{ '::ParentId' | abpLocalization }}
+            </label>
+
+            <input
+              id="master-data-parent-id"
+              formControlName="parentId"
+              class="form-control"
+              autofocus
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="master-data-name">
+              {{ '::Name' | abpLocalization }} *
+            </label>
+
+            <input
+              id="master-data-name"
+              formControlName="name"
+              class="form-control"
+              maxlength="100"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="master-data-value">
+              {{ '::Value' | abpLocalization }}
+            </label>
+
+            <input id="master-data-value" formControlName="value" class="form-control" />
+          </div>
+          <div class="form-check mb-3">
+            <input
+              type="checkbox"
+              id="master-data-inline-value"
+              formControlName="inlineValue"
+              class="form-check-input"
+            />
+
+            <label for="master-data-inline-value" class="form-check-label">
+              {{ '::InlineValue' | abpLocalization }}
+            </label>
+          </div>
+          <div class="form-check mb-3">
+            <input
+              type="checkbox"
+              id="master-data-visible-to-tenant"
+              formControlName="visibleToTenant"
+              class="form-check-input"
+            />
+
+            <label for="master-data-visible-to-tenant" class="form-check-label">
+              {{ '::VisibleToTenant' | abpLocalization }}
+            </label>
+          </div>
+          <div class="form-check mb-3">
+            <input
+              type="checkbox"
+              id="master-data-is-section"
+              formControlName="isSection"
+              class="form-check-input"
+            />
+
+            <label for="master-data-is-section" class="form-check-label">
+              {{ '::IsSection' | abpLocalization }}
+            </label>
+          </div>
+          <div class="form-check mb-3">
+            <input
+              type="checkbox"
+              id="master-data-is-radio"
+              formControlName="isRadio"
+              class="form-check-input"
+            />
+
+            <label for="master-data-is-radio" class="form-check-label">
+              {{ '::IsRadio' | abpLocalization }}
+            </label>
+          </div>
+          <div class="form-check mb-3">
+            <input
+              type="checkbox"
+              id="master-data-is-exportable"
+              formControlName="isExportable"
+              class="form-check-input"
+            />
+
+            <label for="master-data-is-exportable" class="form-check-label">
+              {{ '::IsExportable' | abpLocalization }}
+            </label>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="master-data-icon">
+              {{ '::Icon' | abpLocalization }}
+            </label>
+
+            <input
+              id="master-data-icon"
+              formControlName="icon"
+              class="form-control"
+              maxlength="50"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="master-data-culture-name">
+              {{ '::CultureName' | abpLocalization }} *
+            </label>
+
+            <input
+              id="master-data-culture-name"
+              formControlName="cultureName"
+              class="form-control"
+              maxlength="10"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="master-data-sort-order">
+              {{ '::SortOrder' | abpLocalization }} *
+            </label>
+
+            <input
+              type="number"
+              id="master-data-sort-order"
+              formControlName="sortOrder"
+              class="form-control"
+            />
+          </div>
+        </div>
+      </form>
+    </ng-template>
+
+    <ng-template #abpFooter>
+      <button type="button" class="btn btn-secondary" abpClose>
+        {{ 'AbpUi::Cancel' | abpLocalization }}
+      </button>
+
+      <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+        {{ 'AbpUi::Save' | abpLocalization }}
+      </abp-button>
+    </ng-template>
+  </abp-modal></abp-page
+>

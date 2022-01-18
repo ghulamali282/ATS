@@ -1,0 +1,48 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@proxy": [
+        "src/app/proxy/index.ts"
+      ],
+      "@proxy/*": [
+        "src/app/proxy/*"
+      ],
+      "Amm/projects/amm": [
+        "projects/Amm/projects/amm/src/public-api.ts"
+      ],
+      "Amm/projects/amm/config": [
+        "projects/Amm/projects/amm/config/src/public-api.ts"
+      ],
+      "Ccm/projects/ccm": [
+        "projects/Ccm/projects/ccm/src/public-api.ts"
+      ],
+      "Ccm/projects/ccm/config": [
+        "projects/Ccm/projects/ccm/config/src/public-api.ts"
+      ],
+      "Crm/projects/crm": [
+        "projects/Crm/projects/crm/src/public-api.ts"
+      ],
+      "Crm/projects/crm/config": [
+        "projects/Crm/projects/crm/config/src/public-api.ts"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false
+  }
+}

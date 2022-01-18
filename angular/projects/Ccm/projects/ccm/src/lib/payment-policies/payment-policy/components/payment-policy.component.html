@@ -1,0 +1,473 @@
+<abp-page [title]="'Ccm::PaymentPolicies' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Ccm.PaymentPolicies.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Ccm::NewPaymentPolicy' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Ccm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="delayedDepositAtFilter">
+                {{ 'Ccm::DelayedDepositAt' | abpLocalization }}
+              </label>
+
+              <input
+                id="delayedDepositAtFilter"
+                class="form-control"
+                [(ngModel)]="filters.delayedDepositAt"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minDeposit">
+                {{ 'Ccm::MinDeposit' | abpLocalization }}
+              </label>
+
+              <input
+                id="minDeposit"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.depositMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxDeposit">
+                {{ 'Ccm::MaxDeposit' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxDeposit"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.depositMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="depositAtReservationFilter">
+                  {{ 'Ccm::DepositAtReservation' | abpLocalization }}
+              </label>
+
+              <select
+                name="depositAtReservation"
+                id="depositAtReservationFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.depositAtReservation"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="depositTypeFilter">
+                {{ 'Ccm::DepositType' | abpLocalization }}
+              </label>
+
+              <input
+                id="depositTypeFilter"
+                class="form-control"
+                [(ngModel)]="filters.depositType"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minFinalPaymentDueDays">
+                {{ 'Ccm::MinFinalPaymentDueDays' | abpLocalization }}
+              </label>
+
+              <input
+                id="minFinalPaymentDueDays"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.finalPaymentDueDaysMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxFinalPaymentDueDays">
+                {{ 'Ccm::MaxFinalPaymentDueDays' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxFinalPaymentDueDays"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.finalPaymentDueDaysMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minFullPaymentRequiredDays">
+                {{ 'Ccm::MinFullPaymentRequiredDays' | abpLocalization }}
+              </label>
+
+              <input
+                id="minFullPaymentRequiredDays"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.fullPaymentRequiredDaysMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxFullPaymentRequiredDays">
+                {{ 'Ccm::MaxFullPaymentRequiredDays' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxFullPaymentRequiredDays"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.fullPaymentRequiredDaysMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="policyStringFilter">
+                {{ 'Ccm::PolicyString' | abpLocalization }}
+              </label>
+
+              <input
+                id="policyStringFilter"
+                class="form-control"
+                [(ngModel)]="filters.policyString"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="operatorNameFilter">
+                {{ 'Ccm::Partner' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="operatorNameFilter"
+                [getFn]="service.getPartnerLookup"
+                [(ngModel)]="filters.operatorName"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="policyNameFilter">
+                {{ 'Ccm::MasterData' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="policyNameFilter"
+                [getFn]="service.getMasterDataLookup"
+                [(ngModel)]="filters.policyName"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.PaymentPolicies.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.PaymentPolicies.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::DelayedDepositAt' | abpLocalization }}" prop="paymentPolicy.delayedDepositAt">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.paymentPolicy.delayedDepositAt }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Deposit' | abpLocalization }}" prop="paymentPolicy.deposit">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.paymentPolicy.deposit }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::DepositAtReservation' | abpLocalization }}" prop="paymentPolicy.depositAtReservation">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.paymentPolicy.depositAtReservation" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::DepositType' | abpLocalization }}" prop="paymentPolicy.depositType">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.paymentPolicy.depositType }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::FinalPaymentDueDays' | abpLocalization }}" prop="paymentPolicy.finalPaymentDueDays">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.paymentPolicy.finalPaymentDueDays }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::FullPaymentRequiredDays' | abpLocalization }}" prop="paymentPolicy.fullPaymentRequiredDays">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.paymentPolicy.fullPaymentRequiredDays }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::PolicyString' | abpLocalization }}" prop="paymentPolicy.policyString">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.paymentPolicy.policyString }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Partner' | abpLocalization }}" prop="partner.partnerName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner?.partnerName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::MasterData' | abpLocalization }}" prop="masterData.name">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.masterData?.name }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Ccm::NewPaymentPolicy') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="payment-policy-delayed-deposit-at">
+            {{ 'Ccm::DelayedDepositAt' | abpLocalization }} 
+          </label>
+
+          <input
+            id="payment-policy-delayed-deposit-at"
+            formControlName="delayedDepositAt"
+            class="form-control"
+            maxlength="50"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="payment-policy-deposit">
+            {{ 'Ccm::Deposit' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="payment-policy-deposit"
+            formControlName="deposit"
+            class="form-control"
+          />
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="payment-policy-deposit-at-reservation"
+            formControlName="depositAtReservation"
+            class="form-check-input"
+          />
+
+          <label
+            for="payment-policy-deposit-at-reservation"
+            class="form-check-label"
+          >
+              {{ 'Ccm::DepositAtReservation' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="payment-policy-deposit-type">
+            {{ 'Ccm::DepositType' | abpLocalization }} *
+          </label>
+
+          <input
+            id="payment-policy-deposit-type"
+            formControlName="depositType"
+            class="form-control"
+            maxlength="3"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="payment-policy-final-payment-due-days">
+            {{ 'Ccm::FinalPaymentDueDays' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="payment-policy-final-payment-due-days"
+            formControlName="finalPaymentDueDays"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="payment-policy-full-payment-required-days">
+            {{ 'Ccm::FullPaymentRequiredDays' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="payment-policy-full-payment-required-days"
+            formControlName="fullPaymentRequiredDays"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="payment-policy-policy-string">
+            {{ 'Ccm::PolicyString' | abpLocalization }} *
+          </label>
+
+          <input
+            id="payment-policy-policy-string"
+            formControlName="policyString"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="payment-policy-operator-name">
+            {{ 'Ccm::Partner' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="payment-policy-operator-name"
+            formControlName="operatorName"
+            [getFn]="service.getPartnerLookup"
+          ></abp-lookup-select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="payment-policy-policy-name">
+            {{ 'Ccm::MasterData' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="payment-policy-policy-name"
+            formControlName="policyName"
+            [getFn]="service.getMasterDataLookup"
+          ></abp-lookup-select>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

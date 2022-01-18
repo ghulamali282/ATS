@@ -1,0 +1,1137 @@
+<abp-page [title]="'Ccm::Itineraries' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Ccm.Itineraries.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Ccm::NewItinerary' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Ccm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="itineraryNameStringFilter">
+                {{ 'Ccm::ItineraryNameString' | abpLocalization }}
+              </label>
+
+              <input
+                id="itineraryNameStringFilter"
+                class="form-control"
+                [(ngModel)]="filters.itineraryNameString"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="itineraryCodeFilter">
+                {{ 'Ccm::ItineraryCode' | abpLocalization }}
+              </label>
+
+              <input
+                id="itineraryCodeFilter"
+                class="form-control"
+                [(ngModel)]="filters.itineraryCode"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="googleMapLinkFilter">
+                {{ 'Ccm::GoogleMapLink' | abpLocalization }}
+              </label>
+
+              <input
+                id="googleMapLinkFilter"
+                class="form-control"
+                [(ngModel)]="filters.googleMapLink"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minDuration">
+                {{ 'Ccm::MinDuration' | abpLocalization }}
+              </label>
+
+              <input
+                id="minDuration"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.durationMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxDuration">
+                {{ 'Ccm::MaxDuration' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxDuration"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.durationMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="extendedItineraryFilter">
+                {{ 'Ccm::ExtendedItinerary' | abpLocalization }}
+              </label>
+
+              <select
+                name="extendedItinerary"
+                id="extendedItineraryFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.extendedItinerary"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="marinaFilter">
+                {{ 'Ccm::Marina' | abpLocalization }}
+              </label>
+
+              <input
+                id="marinaFilter"
+                class="form-control"
+                [(ngModel)]="filters.marina"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="embarcationLatitudeFilter">
+                {{ 'Ccm::EmbarcationLatitude' | abpLocalization }}
+              </label>
+
+              <input
+                id="embarcationLatitudeFilter"
+                class="form-control"
+                [(ngModel)]="filters.embarcationLatitude"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="embarcationLongitudeFilter">
+                {{ 'Ccm::EmbarcationLongitude' | abpLocalization }}
+              </label>
+
+              <input
+                id="embarcationLongitudeFilter"
+                class="form-control"
+                [(ngModel)]="filters.embarcationLongitude"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="disembarkationLatitudeFilter">
+                {{ 'Ccm::DisembarkationLatitude' | abpLocalization }}
+              </label>
+
+              <input
+                id="disembarkationLatitudeFilter"
+                class="form-control"
+                [(ngModel)]="filters.disembarkationLatitude"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="disembarkationLongitudeFilter">
+                {{ 'Ccm::DisembarkationLongitude' | abpLocalization }}
+              </label>
+
+              <input
+                id="disembarkationLongitudeFilter"
+                class="form-control"
+                [(ngModel)]="filters.disembarkationLongitude"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="checkInTimeFilter">
+                {{ 'Ccm::CheckInTime' | abpLocalization }}
+              </label>
+
+              <input
+                id="checkInTimeFilter"
+                class="form-control"
+                [(ngModel)]="filters.checkInTime"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="checkOutTimeFilter">
+                {{ 'Ccm::CheckOutTime' | abpLocalization }}
+              </label>
+
+              <input
+                id="checkOutTimeFilter"
+                class="form-control"
+                [(ngModel)]="filters.checkOutTime"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="transferIncludedFilter">
+                {{ 'Ccm::TransferIncluded' | abpLocalization }}
+              </label>
+
+              <select
+                name="transferIncluded"
+                id="transferIncludedFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.transferIncluded"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="videoFilter">
+                {{ 'Ccm::Video' | abpLocalization }}
+              </label>
+
+              <input
+                id="videoFilter"
+                class="form-control"
+                [(ngModel)]="filters.video"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minRequestDuration">
+                {{ 'Ccm::MinRequestDuration' | abpLocalization }}
+              </label>
+
+              <input
+                id="minRequestDuration"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.requestDurationMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxRequestDuration">
+                {{ 'Ccm::MaxRequestDuration' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxRequestDuration"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.requestDurationMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minOptionDuration">
+                {{ 'Ccm::MinOptionDuration' | abpLocalization }}
+              </label>
+
+              <input
+                id="minOptionDuration"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.optionDurationMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxOptionDuration">
+                {{ 'Ccm::MaxOptionDuration' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxOptionDuration"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.optionDurationMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="operatorNameFilter">
+                {{ 'Ccm::Partner' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="operatorNameFilter"
+                [getFn]="service.getPartnerLookup"
+                [(ngModel)]="filters.operatorName"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="themesFilter">
+                {{ 'Ccm::MasterData' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="themesFilter"
+                [getFn]="service.getMasterDataLookup"
+                [(ngModel)]="filters.themes"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="boardingFilter">
+                {{ 'Ccm::MasterData' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="boardingFilter"
+                [getFn]="service.getMasterDataLookup"
+                [(ngModel)]="filters.boarding"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="agePolicyIdFilter">
+                {{ 'Ccm::AgePolicy' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="agePolicyIdFilter"
+                [getFn]="service.getAgePolicyLookup"
+                [(ngModel)]="filters.agePolicyId"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="embarcationPortFilter">
+                {{ 'Ccm::Destination' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="embarcationPortFilter"
+                [getFn]="service.getDestinationLookup"
+                [(ngModel)]="filters.embarcationPort"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="disembarkationPortFilter">
+                {{ 'Ccm::Destination' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="disembarkationPortFilter"
+                [getFn]="service.getDestinationLookup"
+                [(ngModel)]="filters.disembarkationPort"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cancellationPolicyFilter">
+                {{ 'Ccm::CancellationPolicy' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="cancellationPolicyFilter"
+                [getFn]="service.getCancellationPolicyLookup"
+                [(ngModel)]="filters.cancellationPolicy"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="paymentPolicyFilter">
+                {{ 'Ccm::PaymentPolicy' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="paymentPolicyFilter"
+                [getFn]="service.getPaymentPolicyLookup"
+                [(ngModel)]="filters.paymentPolicy"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="itineraryNameFilter">
+                {{ 'Ccm::MasterData' | abpLocalization }}
+              </label>
+              <abp-lookup-input
+                cid="itineraryNameFilter"
+                displayNameProp="name"
+                lookupNameProp="displayName"
+                [getFn]="service.getMasterDataLookup"
+                [(ngModel)]="filters.itineraryName"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-input>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-outline-primary" (click)="clearFilters()">
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.Itineraries.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.Itineraries.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::ItineraryNameString' | abpLocalization }}"
+          prop="itinerary.itineraryNameString"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.itineraryNameString }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::ItineraryCode' | abpLocalization }}"
+          prop="itinerary.itineraryCode"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.itineraryCode }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::GoogleMapLink' | abpLocalization }}"
+          prop="itinerary.googleMapLink"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.googleMapLink }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::Duration' | abpLocalization }}"
+          prop="itinerary.duration"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.duration }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::ExtendedItinerary' | abpLocalization }}"
+          prop="itinerary.extendedItinerary"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template
+              [ngIf]="row.itinerary.extendedItinerary"
+              [ngIfThen]="yes"
+              [ngIfElse]="no"
+            ></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Marina' | abpLocalization }}" prop="itinerary.marina">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.marina }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::EmbarcationLatitude' | abpLocalization }}"
+          prop="itinerary.embarcationLatitude"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.embarcationLatitude }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::EmbarcationLongitude' | abpLocalization }}"
+          prop="itinerary.embarcationLongitude"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.embarcationLongitude }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::DisembarkationLatitude' | abpLocalization }}"
+          prop="itinerary.disembarkationLatitude"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.disembarkationLatitude }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::DisembarkationLongitude' | abpLocalization }}"
+          prop="itinerary.disembarkationLongitude"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.disembarkationLongitude }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::CheckInTime' | abpLocalization }}"
+          prop="itinerary.checkInTime"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.checkInTime }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::CheckOutTime' | abpLocalization }}"
+          prop="itinerary.checkOutTime"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.checkOutTime }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::TransferIncluded' | abpLocalization }}"
+          prop="itinerary.transferIncluded"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template
+              [ngIf]="row.itinerary.transferIncluded"
+              [ngIfThen]="yes"
+              [ngIfElse]="no"
+            ></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Video' | abpLocalization }}" prop="itinerary.video">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.video }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::RequestDuration' | abpLocalization }}"
+          prop="itinerary.requestDuration"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.requestDuration }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::OptionDuration' | abpLocalization }}"
+          prop="itinerary.optionDuration"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary.optionDuration }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::Partner' | abpLocalization }}"
+          prop="partner.partnerName"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner?.partnerName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::MasterData' | abpLocalization }}"
+          prop="masterData.name"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.masterData?.name }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::MasterData' | abpLocalization }}"
+          prop="masterData.name"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.masterData?.name }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::AgePolicy' | abpLocalization }}"
+          prop="agePolicy.demoField"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.agePolicy?.demoField }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::Destination' | abpLocalization }}"
+          prop="destination.city"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.destination?.city }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::Destination' | abpLocalization }}"
+          prop="destination.city"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.destination?.city }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::CancellationPolicy' | abpLocalization }}"
+          prop="cancellationPolicy.nameString"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cancellationPolicy?.nameString }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::PaymentPolicy' | abpLocalization }}"
+          prop="paymentPolicy.policyString"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.paymentPolicy?.policyString }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::MasterData' | abpLocalization }}"
+          prop="masterData.name"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.masterData?.name }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [options]="{ size: 'lg' }" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Ccm::NewItinerary') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <div class="mb-3" role="tabpanel">
+      <ul class="nav nav-tabs" id="myTabs">
+        <li  class="nav-item">
+          <a 
+          href="#main" 
+          class="nav-link active" 
+          data-toggle="tab"
+          >Main</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            href="#locations"
+            class="nav-link"
+            data-toggle="tab"
+            >Locations</a
+          >
+        </li>
+      </ul>
+      <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+        <div class="tab-content" id="mytabs">
+          <div class="mb-3">
+            <label class="form-label" for="itinerary-operator-name">
+              {{ 'Ccm::Partner' | abpLocalization }} *
+            </label>
+
+            <abp-lookup-select
+              cid="itinerary-operator-name"
+              formControlName="operatorName"
+              [getFn]="service.getPartnerLookup"
+            ></abp-lookup-select>
+          </div>
+
+          <div class="row">
+            <div class="col-9">
+              <div class="mb-3">
+                <label class="form-label" for="itinerary-itinerary-name">
+                  {{ 'Ccm::ItineraryName' | abpLocalization }} *
+                </label>
+                <abp-lookup-input
+                  cid="itinerary-itinerary-name"
+                  formControlName="itineraryName"
+                  displayNameProp="name"
+                  lookupNameProp="displayName"
+                  [getFn]="service.getMasterDataLookup"
+                  [editingData]="selected?.masterData"
+                ></abp-lookup-input>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="mb-3">
+                <label class="form-label" for="itinerary-itinerary-code">
+                  {{ 'Ccm::ItineraryCode' | abpLocalization }} *
+                </label>
+
+                <input
+                  id="itinerary-itinerary-code"
+                  formControlName="itineraryCode"
+                  class="form-control"
+                  maxlength="10"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <div class="mb-3">
+                <label class="form-label" for="itinerary-boarding">
+                  {{ 'Ccm::Boarding' | abpLocalization }} *
+                </label>
+
+                <abp-lookup-select
+                  cid="itinerary-boarding"
+                  formControlName="boarding"
+                  [getFn]="service.getMasterDataLookup"
+                ></abp-lookup-select>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="mb-3">
+                <label class="form-label" for="itinerary-duration">
+                  {{ 'Ccm::Duration' | abpLocalization }} *
+                </label>
+
+                <input
+                  type="number"
+                  id="itinerary-duration"
+                  formControlName="duration"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="col-3 align-self-center pt-4">
+              <div class="form-check">
+                <label for="itinerary-extended-itinerary" class="form-label">
+                  {{ 'Ccm::ExtendedItinerary' | abpLocalization }} *
+                </label>
+
+                <input
+                  type="checkbox"
+                  id="itinerary-extended-itinerary"
+                  formControlName="extendedItinerary"
+                  class="form-check-input"
+                />
+              </div>
+            </div>
+
+            <div class="col-3 align-self-center pt-4">
+              <div class="form-check mb-3">
+                <input
+                  type="checkbox"
+                  id="itinerary-transfer-included"
+                  formControlName="transferIncluded"
+                  class="form-check-input"
+                />
+
+                <label for="itinerary-transfer-included" class="form-check-label">
+                  {{ 'Ccm::TransferIncluded' | abpLocalization }} *
+                </label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-themes">
+                {{ 'Ccm::Themes' | abpLocalization }} *
+              </label>
+
+              <abp-lookup-select
+                cid="itinerary-themes"
+                formControlName="themes"
+                [getFn]="service.getMasterDataLookup"
+              ></abp-lookup-select>
+            </div>
+
+            <div class="dropdown-divider mt-1 mb-3"></div>
+            <div class="row">
+              <div class="col-6">
+                <div class="mb-1">
+                  <label class="form-label" for="itinerary-embarcation-port">
+                    {{ 'Ccm::EmbarcationPort' | abpLocalization }} *
+                  </label>
+
+                  <abp-lookup-select
+                    cid="itinerary-embarcation-port"
+                    formControlName="embarcationPort"
+                    [getFn]="service.getDestinationLookup"
+                  ></abp-lookup-select>
+                </div>
+                <div class="mb-1">
+                  <label class="form-label" for="itinerary-disembarkation-port">
+                    {{ 'Ccm::DisembarkationPort' | abpLocalization }} *
+                  </label>
+
+                  <abp-lookup-select
+                    cid="itinerary-disembarkation-port"
+                    formControlName="disembarkationPort"
+                    [getFn]="service.getDestinationLookup"
+                  ></abp-lookup-select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label" for="itinerary-marina">
+                    {{ 'Ccm::Marina' | abpLocalization }}
+                  </label>
+    
+                  <input id="itinerary-marina" formControlName="marina" class="form-control" />
+                </div>
+
+              </div>
+              <div class="col-3">
+                <div class="mb-3 mt-4 ">
+                  <label class="form-label" for="itinerary-check-in-time">
+                    {{ 'Ccm::CheckInTime' | abpLocalization }} *
+                  </label>
+
+                  <ngb-timepicker
+                    id="itinerary-check-in-time"
+                    formControlName="checkInTime"
+                    [(ngModel)]="time"
+                  ></ngb-timepicker>
+                  <!--           <input
+            id="itinerary-check-in-time"
+            formControlName="checkInTime"
+            class="form-control"
+            maxlength="3"
+          /> -->
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="mb-3 mt-4 ">
+                  <label class="form-label" for="itinerary-check-out-time">
+                    {{ 'Ccm::CheckOutTime' | abpLocalization }} *
+                  </label>
+                  <ngb-timepicker
+                    id="itinerary-check-out-time"
+                    formControlName="checkOutTime"
+                    [(ngModel)]="time2"
+                  ></ngb-timepicker>
+                  <!--           <input
+            id="itinerary-check-out-time"
+            formControlName="checkOutTime"
+            class="form-control"
+            maxlength="3"
+          /> -->
+                </div>
+              </div>
+            </div>
+            <div class="dropdown-divider mt-1 mb-3"></div>
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-itinerary-name-string">
+                {{ 'Ccm::ItineraryNameString' | abpLocalization }} *
+              </label>
+
+              <input
+                id="itinerary-itinerary-name-string"
+                formControlName="itineraryNameString"
+                class="form-control"
+                autofocus
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-video">
+                {{ 'Ccm::Video' | abpLocalization }}
+              </label>
+
+              <input
+                id="itinerary-video"
+                formControlName="video"
+                class="form-control"
+                maxlength="1000"
+              />
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="mb-3">
+                  <label class="form-label" for="itinerary-request-duration">
+                    {{ 'Ccm::RequestDuration' | abpLocalization }} *
+                  </label>
+
+                  <input
+                    type="number"
+                    id="itinerary-request-duration"
+                    formControlName="requestDuration"
+                    class="form-control"
+                  />
+                </div>
+            </div>
+              <div class="col-6">
+              <div class="mb-3">
+                <label class="form-label" for="itinerary-option-duration">
+                  {{ 'Ccm::OptionDuration' | abpLocalization }} *
+                </label>
+
+                <input
+                  type="number"
+                  id="itinerary-option-duration"
+                  formControlName="optionDuration"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+
+
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-age-policy-id">
+                {{ 'Ccm::AgePolicy' | abpLocalization }} *
+              </label>
+
+              <abp-lookup-select
+                cid="itinerary-age-policy-id"
+                formControlName="agePolicyId"
+                [getFn]="service.getAgePolicyLookup"
+              ></abp-lookup-select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-cancellation-policy">
+                {{ 'Ccm::CancellationPolicy' | abpLocalization }} *
+              </label>
+
+              <abp-lookup-select
+                cid="itinerary-cancellation-policy"
+                formControlName="cancellationPolicy"
+                [getFn]="service.getCancellationPolicyLookup"
+              ></abp-lookup-select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-payment-policy">
+                {{ 'Ccm::PaymentPolicy' | abpLocalization }} *
+              </label>
+
+              <abp-lookup-select
+                cid="itinerary-payment-policy"
+                formControlName="paymentPolicy"
+                [getFn]="service.getPaymentPolicyLookup"
+              ></abp-lookup-select>
+            </div>
+          </div>
+
+          <div >
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-google-map-link">
+                {{ 'Ccm::GoogleMapLink' | abpLocalization }}
+              </label>
+
+              <input
+                id="itinerary-google-map-link"
+                formControlName="googleMapLink"
+                class="form-control"
+                maxlength="100"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-embarcation-latitude">
+                {{ 'Ccm::EmbarcationLatitude' | abpLocalization }} *
+              </label>
+
+              <input
+                id="itinerary-embarcation-latitude"
+                formControlName="embarcationLatitude"
+                class="form-control"
+                maxlength="50"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-embarcation-longitude">
+                {{ 'Ccm::EmbarcationLongitude' | abpLocalization }} *
+              </label>
+
+              <input
+                id="itinerary-embarcation-longitude"
+                formControlName="embarcationLongitude"
+                class="form-control"
+                maxlength="50"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-disembarkation-latitude">
+                {{ 'Ccm::DisembarkationLatitude' | abpLocalization }} *
+              </label>
+
+              <input
+                id="itinerary-disembarkation-latitude"
+                formControlName="disembarkationLatitude"
+                class="form-control"
+                maxlength="50"
+              />
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="itinerary-disembarkation-longitude">
+                {{ 'Ccm::DisembarkationLongitude' | abpLocalization }} *
+              </label>
+
+              <input
+                id="itinerary-disembarkation-longitude"
+                formControlName="disembarkationLongitude"
+                class="form-control"
+                maxlength="50"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

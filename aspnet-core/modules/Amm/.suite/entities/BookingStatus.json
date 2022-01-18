@@ -1,0 +1,54 @@
+{
+  "Id": "36f99cc2-ae73-4118-99d3-8c1a0d461354",
+  "Name": "BookingStatus",
+  "OriginalName": "BookingStatus",
+  "NamePlural": "BookingStatuses",
+  "DatabaseTableName": "BookingStatuses",
+  "Namespace": "BookingStatuses",
+  "BaseClass": "Entity",
+  "PrimaryKeyType": "int",
+  "IsMultiTenant": false,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": false,
+  "ShouldAddMigration": false,
+  "ShouldUpdateDatabase": false,
+  "CreateTests": false,
+  "Properties": [
+    {
+      "Id": "7d932462-7c2a-44dc-bafe-2912b63d524f",
+      "Name": "StatusColor",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "IsNullable": false,
+      "IsRequired": true,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "Namespace": "Amm.MasterDatas",
+      "EntityName": "MasterData",
+      "EntityNameWithDuplicationNumber": "MasterData",
+      "EntitySetNameWithDuplicationNumber": "MasterDatas",
+      "EntitySetName": "MasterDatas",
+      "DtoNamespace": "Amm.MasterDatas",
+      "DtoEntityName": "MasterDataDto",
+      "Type": "Guid",
+      "Name": "BookingStatusName",
+      "ReferencePropertyName": "BookingStatusName",
+      "DisplayProperty": "Name",
+      "UiPickType": "Dropdown",
+      "IsRequired": true
+    }
+  ],
+  "PhysicalFileName": "BookingStatus.json"
+}

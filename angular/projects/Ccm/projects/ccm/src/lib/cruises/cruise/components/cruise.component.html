@@ -1,0 +1,1020 @@
+<abp-page [title]="'Ccm::Cruises' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Ccm.Cruises.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Ccm::NewCruise' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Ccm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minSeason">
+                {{ 'Ccm::MinSeason' | abpLocalization }}
+              </label>
+
+              <input
+                id="minSeason"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.seasonMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxSeason">
+                {{ 'Ccm::MaxSeason' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxSeason"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.seasonMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cruiseEnabledFilter">
+                {{ 'Ccm::CruiseEnabled' | abpLocalization }}
+              </label>
+
+              <select
+                name="cruiseEnabled"
+                id="cruiseEnabledFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.cruiseEnabled"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="featuredFilter">
+                {{ 'Ccm::Featured' | abpLocalization }}
+              </label>
+
+              <select
+                name="featured"
+                id="featuredFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.featured"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="freeInternetOnBoardFilter">
+                {{ 'Ccm::FreeInternetOnBoard' | abpLocalization }}
+              </label>
+
+              <select
+                name="freeInternetOnBoard"
+                id="freeInternetOnBoardFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.freeInternetOnBoard"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="internetOnBoardFilter">
+                {{ 'Ccm::InternetOnBoard' | abpLocalization }}
+              </label>
+
+              <select
+                name="internetOnBoard"
+                id="internetOnBoardFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.internetOnBoard"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="videoFilter">
+                {{ 'Ccm::Video' | abpLocalization }}
+              </label>
+
+              <input
+                id="videoFilter"
+                class="form-control"
+                [(ngModel)]="filters.video"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="b2BFilter">
+                {{ 'Ccm::B2B' | abpLocalization }}
+              </label>
+
+              <select
+                name="b2B"
+                id="b2BFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.b2B"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="b2CFilter">
+                {{ 'Ccm::B2C' | abpLocalization }}
+              </label>
+
+              <select
+                name="b2C"
+                id="b2CFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.b2C"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="b2B_AgentFilter">
+                {{ 'Ccm::B2B_Agent' | abpLocalization }}
+              </label>
+
+              <select
+                name="b2B_Agent"
+                id="b2B_AgentFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.b2B_Agent"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="b2C_AgentFilter">
+                {{ 'Ccm::B2C_Agent' | abpLocalization }}
+              </label>
+
+              <select
+                name="b2C_Agent"
+                id="b2C_AgentFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.b2C_Agent"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cruiseDescriptionsFilter">
+                {{ 'Ccm::CruiseDescriptions' | abpLocalization }}
+              </label>
+
+              <input
+                id="cruiseDescriptionsFilter"
+                class="form-control"
+                [(ngModel)]="filters.cruiseDescriptions"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipAmenitiesFilter">
+                {{ 'Ccm::ShipAmenities' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipAmenitiesFilter"
+                class="form-control"
+                [(ngModel)]="filters.shipAmenities"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipArticlesFilter">
+                {{ 'Ccm::ShipArticles' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipArticlesFilter"
+                class="form-control"
+                [(ngModel)]="filters.shipArticles"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipPhotosFilter">
+                {{ 'Ccm::ShipPhotos' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipPhotosFilter"
+                class="form-control"
+                [(ngModel)]="filters.shipPhotos"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cabinAmenitiesFilter">
+                {{ 'Ccm::CabinAmenities' | abpLocalization }}
+              </label>
+
+              <input
+                id="cabinAmenitiesFilter"
+                class="form-control"
+                [(ngModel)]="filters.cabinAmenities"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cabinArticlesFilter">
+                {{ 'Ccm::CabinArticles' | abpLocalization }}
+              </label>
+
+              <input
+                id="cabinArticlesFilter"
+                class="form-control"
+                [(ngModel)]="filters.cabinArticles"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cabinPhotosFilter">
+                {{ 'Ccm::CabinPhotos' | abpLocalization }}
+              </label>
+
+              <input
+                id="cabinPhotosFilter"
+                class="form-control"
+                [(ngModel)]="filters.cabinPhotos"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipFilter">
+                {{ 'Ccm::Ship' | abpLocalization }}
+              </label>
+              <abp-lookup-input
+                cid="shipFilter"
+                displayNameProp="shipName"
+                lookupNameProp="displayName"
+                [getFn]="service.getShipLookup"
+                [(ngModel)]="filters.ship"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-input>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="itineraryFilter">
+                {{ 'Ccm::Itinerary' | abpLocalization }}
+              </label>
+              <abp-lookup-input
+                cid="itineraryFilter"
+                displayNameProp="itineraryNameString"
+                lookupNameProp="displayName"
+                [getFn]="service.getItineraryLookup"
+                [(ngModel)]="filters.itinerary"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-input>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-outline-primary" (click)="clearFilters()">
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button ngbDropdownItem *abpPermission="'Ccm.Cruises.Edit'" (click)="update(row)">
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button ngbDropdownItem *abpPermission="'Ccm.Cruises.Delete'" (click)="delete(row)">
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Season' | abpLocalization }}" prop="cruise.season">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cruise.season }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::CruiseEnabled' | abpLocalization }}"
+          prop="cruise.cruiseEnabled"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template
+              [ngIf]="row.cruise.cruiseEnabled"
+              [ngIfThen]="yes"
+              [ngIfElse]="no"
+            ></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Featured' | abpLocalization }}" prop="cruise.featured">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template
+              [ngIf]="row.cruise.featured"
+              [ngIfThen]="yes"
+              [ngIfElse]="no"
+            ></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::FreeInternetOnBoard' | abpLocalization }}"
+          prop="cruise.freeInternetOnBoard"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template
+              [ngIf]="row.cruise.freeInternetOnBoard"
+              [ngIfThen]="yes"
+              [ngIfElse]="no"
+            ></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::InternetOnBoard' | abpLocalization }}"
+          prop="cruise.internetOnBoard"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template
+              [ngIf]="row.cruise.internetOnBoard"
+              [ngIfThen]="yes"
+              [ngIfElse]="no"
+            ></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Video' | abpLocalization }}" prop="cruise.video">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cruise.video }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::B2B' | abpLocalization }}" prop="cruise.b2B">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.cruise.b2B" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::B2C' | abpLocalization }}" prop="cruise.b2C">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.cruise.b2C" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::B2B_Agent' | abpLocalization }}"
+          prop="cruise.b2B_Agent"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template
+              [ngIf]="row.cruise.b2B_Agent"
+              [ngIfThen]="yes"
+              [ngIfElse]="no"
+            ></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::B2C_Agent' | abpLocalization }}"
+          prop="cruise.b2C_Agent"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template
+              [ngIf]="row.cruise.b2C_Agent"
+              [ngIfThen]="yes"
+              [ngIfElse]="no"
+            ></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::CruiseDescriptions' | abpLocalization }}"
+          prop="cruise.cruiseDescriptions"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cruise.cruiseDescriptions }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::ShipAmenities' | abpLocalization }}"
+          prop="cruise.shipAmenities"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cruise.shipAmenities }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::ShipArticles' | abpLocalization }}"
+          prop="cruise.shipArticles"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cruise.shipArticles }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::ShipPhotos' | abpLocalization }}"
+          prop="cruise.shipPhotos"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cruise.shipPhotos }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::CabinAmenities' | abpLocalization }}"
+          prop="cruise.cabinAmenities"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cruise.cabinAmenities }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::CabinArticles' | abpLocalization }}"
+          prop="cruise.cabinArticles"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cruise.cabinArticles }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::CabinPhotos' | abpLocalization }}"
+          prop="cruise.cabinPhotos"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cruise.cabinPhotos }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Ship' | abpLocalization }}" prop="ship.shipName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship?.shipName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="{{ 'Ccm::Itinerary' | abpLocalization }}"
+          prop="itinerary.itineraryNameString"
+        >
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary?.itineraryNameString }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [options]="{ size: 'lg' }" [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Ccm::NewCruise') | abpLocalization }}
+    </h3>
+    <div class="border-top my-3"></div>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="cruise-itinerary">
+            {{ 'Ccm::Itinerary' | abpLocalization }} *
+          </label>
+          <abp-lookup-input
+            cid="cruise-itinerary"
+            formControlName="itinerary"
+            displayNameProp="itineraryNameString"
+            lookupNameProp="displayName"
+            [getFn]="service.getItineraryLookup"
+            [editingData]="selected?.itinerary"
+          ></abp-lookup-input>
+        </div>
+
+        <div class="row">
+          <div class="col-3">
+            <div class="mb-3">
+              <label class="form-label" for="cruise-season">
+                {{ 'Ccm::Season' | abpLocalization }} *
+              </label>
+
+              <input
+                type="number"
+                id="cruise-season"
+                formControlName="season"
+                class="form-control"
+                autofocus
+              />
+            </div>
+          </div>
+          <div class="col-9">
+            <div class="mb-3">
+              <label class="form-label" for="cruise-ship">
+                {{ 'Ccm::Ship' | abpLocalization }} *
+              </label>
+              <abp-lookup-input
+                cid="cruise-ship"
+                formControlName="ship"
+                displayNameProp="shipName"
+                lookupNameProp="displayName"
+                [getFn]="service.getShipLookup"
+                [editingData]="selected?.ship"
+              ></abp-lookup-input>
+            </div>
+          </div>
+        </div>
+
+        <div class="dropdown-divider mt-1 mb-3"></div>
+
+        <div class="row">
+          <div class="col-8">
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                id="cruise-cruise-enabled"
+                formControlName="cruiseEnabled"
+                class="form-check-input"
+              />
+
+              <label for="cruise-cruise-enabled" class="form-check-label">
+                {{ 'Ccm::CruiseEnabled' | abpLocalization }} *
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                id="cruise-featured"
+                formControlName="featured"
+                class="form-check-input"
+              />
+
+              <label for="cruise-featured" class="form-check-label">
+                {{ 'Ccm::Featured' | abpLocalization }} *
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                id="cruise-free-internet-on-board"
+                formControlName="freeInternetOnBoard"
+                class="form-check-input"
+              />
+
+              <label for="cruise-free-internet-on-board" class="form-check-label">
+                {{ 'Ccm::FreeInternetOnBoard' | abpLocalization }} *
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                id="cruise-internet-on-board"
+                formControlName="internetOnBoard"
+                class="form-check-input"
+              />
+
+              <label for="cruise-internet-on-board" class="form-check-label">
+                {{ 'Ccm::InternetOnBoard' | abpLocalization }} *
+              </label>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                id="cruise-b2-b"
+                formControlName="b2B"
+                class="form-check-input"
+              />
+
+              <label for="cruise-b2-b" class="form-check-label">
+                {{ 'Ccm::B2B' | abpLocalization }} *
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                id="cruise-b2-c"
+                formControlName="b2C"
+                class="form-check-input"
+              />
+
+              <label for="cruise-b2-c" class="form-check-label">
+                {{ 'Ccm::B2C' | abpLocalization }} *
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                id="cruise-b2-b-agent"
+                formControlName="b2B_Agent"
+                class="form-check-input"
+              />
+
+              <label for="cruise-b2-b-agent" class="form-check-label">
+                {{ 'Ccm::B2B_Agent' | abpLocalization }} *
+              </label>
+            </div>
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                id="cruise-b2-c-agent"
+                formControlName="b2C_Agent"
+                class="form-check-input"
+              />
+
+              <label for="cruise-b2-c-agent" class="form-check-label">
+                {{ 'Ccm::B2C_Agent' | abpLocalization }} *
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="cruise-video">
+            {{ 'Ccm::Video' | abpLocalization }}
+          </label>
+
+          <input id="cruise-video" formControlName="video" class="form-control" maxlength="500" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="cruise-cruise-descriptions">
+            {{ 'Ccm::CruiseDescriptions' | abpLocalization }}
+          </label>
+
+          <select
+            id="cruise-cruise-descriptions"
+            formControlName="cruiseDescriptions"
+            class="form-select form-control"
+          >
+            <option [ngValue]="0">{{ 'Ccm::UseItineraryDesription' | abpLocalization }}</option>
+            <option [ngValue]="1">{{ 'Ccm::CustomCruiseDescription' | abpLocalization }}</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <div class="mb-3">
+              <label class="form-label" for="cruise-ship-amenities">
+                {{ 'Ccm::ShipAmenities' | abpLocalization }}
+              </label>
+
+              <select
+                id="cruise-ship-amenities"
+                formControlName="shipAmenities"
+                class="form-select form-control"
+              >
+                <option [ngValue]="0">{{ 'Ccm::InheritedFromSystem' | abpLocalization }}</option>
+                <option [ngValue]="1">
+                  {{ 'Ccm::IgnoreSystemDescription' | abpLocalization }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="cruise-ship-articles">
+                {{ 'Ccm::ShipArticles' | abpLocalization }}
+              </label>
+
+              <select
+                id="cruise-ship-articles"
+                formControlName="shipArticles"
+                class="form-select form-control"
+              >
+                <option [ngValue]="0">{{ 'Ccm::InheritedFromSystem' | abpLocalization }}</option>
+                <option [ngValue]="1">
+                  {{ 'Ccm::IgnoreSystemDescription' | abpLocalization }}
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="cruise-ship-photos">
+                {{ 'Ccm::ShipPhotos' | abpLocalization }}
+              </label>
+
+              <select
+                id="cruise-ship-photos"
+                formControlName="shipPhotos"
+                class="form-select form-control"
+              >
+                <option [ngValue]="0">{{ 'Ccm::InheritedFromSystem' | abpLocalization }}</option>
+                <option [ngValue]="1">
+                  {{ 'Ccm::IgnoreSystemDescription' | abpLocalization }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <label class="form-label" for="cruise-cabin-amenities">
+                {{ 'Ccm::CabinAmenities' | abpLocalization }}
+              </label>
+
+              <select
+                id="cruise-cabin-amenities"
+                formControlName="cabinAmenities"
+                class="form-select form-control"
+              >
+                <option [ngValue]="0">{{ 'Ccm::InheritedFromSystem' | abpLocalization }}</option>
+                <option [ngValue]="1">
+                  {{ 'Ccm::IgnoreSystemDescription' | abpLocalization }}
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="cruise-cabin-articles">
+                {{ 'Ccm::CabinArticles' | abpLocalization }}
+              </label>
+
+              <select
+                id="cruise-cabin-articles"
+                formControlName="cabinArticles"
+                class="form-select form-control"
+              >
+                <option [ngValue]="0">{{ 'Ccm::InheritedFromSystem' | abpLocalization }}</option>
+                <option [ngValue]="1">
+                  {{ 'Ccm::IgnoreSystemDescription' | abpLocalization }}
+                </option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="cruise-cabin-photos">
+                {{ 'Ccm::CabinPhotos' | abpLocalization }}
+              </label>
+
+              <select
+                id="cruise-cabin-photos"
+                formControlName="cabinPhotos"
+                class="form-select form-control"
+              >
+                <option [ngValue]="0">{{ 'Ccm::InheritedFromSystem' | abpLocalization }}</option>
+                <option [ngValue]="1">
+                  {{ 'Ccm::IgnoreSystemDescription' | abpLocalization }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

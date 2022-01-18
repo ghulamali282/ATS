@@ -1,0 +1,973 @@
+<abp-page [title]="'Ccm::ItineraryDetails' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Ccm.ItineraryDetails.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Ccm::NewItineraryDetail' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Ccm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="itineraryFilter">
+                {{ 'Ccm::Itinerary' | abpLocalization }}
+              </label>
+
+              <input
+                id="itineraryFilter"
+                class="form-control"
+                [(ngModel)]="filters.itinerary"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="nameFilter">
+                {{ 'Ccm::Name' | abpLocalization }}
+              </label>
+
+              <input
+                id="nameFilter"
+                class="form-control"
+                [(ngModel)]="filters.name"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minDay">
+                {{ 'Ccm::MinDay' | abpLocalization }}
+              </label>
+
+              <input
+                id="minDay"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.dayMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxDay">
+                {{ 'Ccm::MaxDay' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxDay"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.dayMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="portsFilter">
+                {{ 'Ccm::Ports' | abpLocalization }}
+              </label>
+
+              <input
+                id="portsFilter"
+                class="form-control"
+                [(ngModel)]="filters.ports"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="alternativePortsFilter">
+                {{ 'Ccm::AlternativePorts' | abpLocalization }}
+              </label>
+
+              <input
+                id="alternativePortsFilter"
+                class="form-control"
+                [(ngModel)]="filters.alternativePorts"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="welcomeDrinkFilter">
+                  {{ 'Ccm::WelcomeDrink' | abpLocalization }}
+              </label>
+
+              <select
+                name="welcomeDrink"
+                id="welcomeDrinkFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.welcomeDrink"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="welcomeSnackFilter">
+                  {{ 'Ccm::WelcomeSnack' | abpLocalization }}
+              </label>
+
+              <select
+                name="welcomeSnack"
+                id="welcomeSnackFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.welcomeSnack"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="breakfastFilter">
+                  {{ 'Ccm::Breakfast' | abpLocalization }}
+              </label>
+
+              <select
+                name="breakfast"
+                id="breakfastFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.breakfast"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="brunchFilter">
+                  {{ 'Ccm::Brunch' | abpLocalization }}
+              </label>
+
+              <select
+                name="brunch"
+                id="brunchFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.brunch"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="lunchFilter">
+                  {{ 'Ccm::Lunch' | abpLocalization }}
+              </label>
+
+              <select
+                name="lunch"
+                id="lunchFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.lunch"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="afternoonSnackFilter">
+                  {{ 'Ccm::AfternoonSnack' | abpLocalization }}
+              </label>
+
+              <select
+                name="afternoonSnack"
+                id="afternoonSnackFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.afternoonSnack"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="dinnerFilter">
+                  {{ 'Ccm::Dinner' | abpLocalization }}
+              </label>
+
+              <select
+                name="dinner"
+                id="dinnerFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.dinner"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="captainDinnerFilter">
+                  {{ 'Ccm::CaptainDinner' | abpLocalization }}
+              </label>
+
+              <select
+                name="captainDinner"
+                id="captainDinnerFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.captainDinner"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="liveMusicFilter">
+                  {{ 'Ccm::LiveMusic' | abpLocalization }}
+              </label>
+
+              <select
+                name="liveMusic"
+                id="liveMusicFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.liveMusic"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="wineTastingFilter">
+                  {{ 'Ccm::WineTasting' | abpLocalization }}
+              </label>
+
+              <select
+                name="wineTasting"
+                id="wineTastingFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.wineTasting"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="overnightOnAnchorFilter">
+                  {{ 'Ccm::OvernightOnAnchor' | abpLocalization }}
+              </label>
+
+              <select
+                name="overnightOnAnchor"
+                id="overnightOnAnchorFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.overnightOnAnchor"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="overnightAtMarinaFilter">
+                  {{ 'Ccm::OvernightAtMarina' | abpLocalization }}
+              </label>
+
+              <select
+                name="overnightAtMarina"
+                id="overnightAtMarinaFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.overnightAtMarina"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.ItineraryDetails.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.ItineraryDetails.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Itinerary' | abpLocalization }}" prop="itinerary">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.itinerary }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Name' | abpLocalization }}" prop="name">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.name }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Day' | abpLocalization }}" prop="day">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.day }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Ports' | abpLocalization }}" prop="ports">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ports }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::AlternativePorts' | abpLocalization }}" prop="alternativePorts">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.alternativePorts }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::WelcomeDrink' | abpLocalization }}" prop="welcomeDrink">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.welcomeDrink" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::WelcomeSnack' | abpLocalization }}" prop="welcomeSnack">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.welcomeSnack" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Breakfast' | abpLocalization }}" prop="breakfast">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.breakfast" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Brunch' | abpLocalization }}" prop="brunch">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.brunch" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Lunch' | abpLocalization }}" prop="lunch">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.lunch" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::AfternoonSnack' | abpLocalization }}" prop="afternoonSnack">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.afternoonSnack" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Dinner' | abpLocalization }}" prop="dinner">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.dinner" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::CaptainDinner' | abpLocalization }}" prop="captainDinner">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.captainDinner" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::LiveMusic' | abpLocalization }}" prop="liveMusic">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.liveMusic" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::WineTasting' | abpLocalization }}" prop="wineTasting">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.wineTasting" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::OvernightOnAnchor' | abpLocalization }}" prop="overnightOnAnchor">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.overnightOnAnchor" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::OvernightAtMarina' | abpLocalization }}" prop="overnightAtMarina">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.overnightAtMarina" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Ccm::NewItineraryDetail') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="itinerary-detail-itinerary">
+            {{ 'Ccm::Itinerary' | abpLocalization }} *
+          </label>
+
+          <input
+            id="itinerary-detail-itinerary"
+            formControlName="itinerary"
+            class="form-control"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="itinerary-detail-name">
+            {{ 'Ccm::Name' | abpLocalization }} *
+          </label>
+
+          <input
+            id="itinerary-detail-name"
+            formControlName="name"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="itinerary-detail-day">
+            {{ 'Ccm::Day' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="itinerary-detail-day"
+            formControlName="day"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="itinerary-detail-ports">
+            {{ 'Ccm::Ports' | abpLocalization }} *
+          </label>
+
+          <input
+            id="itinerary-detail-ports"
+            formControlName="ports"
+            class="form-control"
+            maxlength="1000"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="itinerary-detail-alternative-ports">
+            {{ 'Ccm::AlternativePorts' | abpLocalization }} 
+          </label>
+
+          <input
+            id="itinerary-detail-alternative-ports"
+            formControlName="alternativePorts"
+            class="form-control"
+            maxlength="1000"
+          />
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-welcome-drink"
+            formControlName="welcomeDrink"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-welcome-drink"
+            class="form-check-label"
+          >
+              {{ 'Ccm::WelcomeDrink' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-welcome-snack"
+            formControlName="welcomeSnack"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-welcome-snack"
+            class="form-check-label"
+          >
+              {{ 'Ccm::WelcomeSnack' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-breakfast"
+            formControlName="breakfast"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-breakfast"
+            class="form-check-label"
+          >
+              {{ 'Ccm::Breakfast' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-brunch"
+            formControlName="brunch"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-brunch"
+            class="form-check-label"
+          >
+              {{ 'Ccm::Brunch' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-lunch"
+            formControlName="lunch"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-lunch"
+            class="form-check-label"
+          >
+              {{ 'Ccm::Lunch' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-afternoon-snack"
+            formControlName="afternoonSnack"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-afternoon-snack"
+            class="form-check-label"
+          >
+              {{ 'Ccm::AfternoonSnack' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-dinner"
+            formControlName="dinner"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-dinner"
+            class="form-check-label"
+          >
+              {{ 'Ccm::Dinner' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-captain-dinner"
+            formControlName="captainDinner"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-captain-dinner"
+            class="form-check-label"
+          >
+              {{ 'Ccm::CaptainDinner' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-live-music"
+            formControlName="liveMusic"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-live-music"
+            class="form-check-label"
+          >
+              {{ 'Ccm::LiveMusic' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-wine-tasting"
+            formControlName="wineTasting"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-wine-tasting"
+            class="form-check-label"
+          >
+              {{ 'Ccm::WineTasting' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-overnight-on-anchor"
+            formControlName="overnightOnAnchor"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-overnight-on-anchor"
+            class="form-check-label"
+          >
+              {{ 'Ccm::OvernightOnAnchor' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="itinerary-detail-overnight-at-marina"
+            formControlName="overnightAtMarina"
+            class="form-check-input"
+          />
+
+          <label
+            for="itinerary-detail-overnight-at-marina"
+            class="form-check-label"
+          >
+              {{ 'Ccm::OvernightAtMarina' | abpLocalization }} *
+          </label>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

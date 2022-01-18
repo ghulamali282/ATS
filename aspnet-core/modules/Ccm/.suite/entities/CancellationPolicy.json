@@ -1,0 +1,69 @@
+{
+  "Id": "beaa0a32-a766-49e1-b5fe-a6ba3ffb3f0e",
+  "Name": "CancellationPolicy",
+  "OriginalName": "CancellationPolicy",
+  "NamePlural": "CancellationPolicies",
+  "DatabaseTableName": "CancellationPolicies",
+  "Namespace": "CancellationPolicies",
+  "BaseClass": "Entity",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": true,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": false,
+  "Properties": [
+    {
+      "Id": "6bc2dae7-395b-4cf0-a7b6-725b14ba3824",
+      "Name": "NameString",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "IsNullable": false,
+      "IsRequired": true,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "Namespace": "Ccm.Partners",
+      "EntityName": "Partner",
+      "EntityNameWithDuplicationNumber": "Partner",
+      "EntitySetNameWithDuplicationNumber": "Partners",
+      "EntitySetName": "Partners",
+      "DtoNamespace": "Ccm.Partners",
+      "DtoEntityName": "PartnerDto",
+      "Type": "Guid",
+      "Name": "OperatorName",
+      "ReferencePropertyName": "OperatorName",
+      "DisplayProperty": "PartnerName",
+      "UiPickType": "Dropdown",
+      "IsRequired": true
+    },
+    {
+      "Namespace": "Ccm.MasterDatas",
+      "EntityName": "MasterData",
+      "EntityNameWithDuplicationNumber": "MasterData",
+      "EntitySetNameWithDuplicationNumber": "MasterDatas",
+      "EntitySetName": "MasterDatas",
+      "DtoNamespace": "Ccm.MasterDatas",
+      "DtoEntityName": "MasterDataDto",
+      "Type": "Guid",
+      "Name": "PolicyName",
+      "ReferencePropertyName": "PolicyName",
+      "DisplayProperty": "Name",
+      "UiPickType": "Dropdown",
+      "IsRequired": true
+    }
+  ],
+  "PhysicalFileName": "CancellationPolicy.json"
+}

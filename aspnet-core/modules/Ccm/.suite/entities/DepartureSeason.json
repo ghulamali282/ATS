@@ -1,0 +1,72 @@
+{
+  "Id": "04fe6d51-8670-4a93-8abd-67e3690459f9",
+  "Name": "DepartureSeason",
+  "OriginalName": "DepartureSeason",
+  "NamePlural": "DepartureSeasons",
+  "DatabaseTableName": "DepartureSeasons",
+  "Namespace": "DepartureSeasons",
+  "BaseClass": "Entity",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": true,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": false,
+  "Properties": [
+    {
+      "Id": "1552313b-b9fa-43e3-88c0-7813b7c54e33",
+      "Name": "Season",
+      "Type": "int",
+      "EnumType": null,
+      "EnumNamespace": null,
+      "EnumAngularImport": null,
+      "IsNullable": false,
+      "IsRequired": true,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": null,
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    },
+    {
+      "Id": "77bd15a7-a3cb-4baa-bb43-39cad681c372",
+      "Name": "SeasonName",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "IsNullable": false,
+      "IsRequired": true,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "Namespace": "Ccm.Partners",
+      "EntityName": "Partner",
+      "EntityNameWithDuplicationNumber": "Partner",
+      "EntitySetNameWithDuplicationNumber": "Partners",
+      "EntitySetName": "Partners",
+      "DtoNamespace": "Ccm.Partners",
+      "DtoEntityName": "PartnerDto",
+      "Type": "Guid",
+      "Name": "Partner",
+      "ReferencePropertyName": "Partner",
+      "DisplayProperty": "PartnerName",
+      "UiPickType": "Dropdown",
+      "IsRequired": true
+    }
+  ],
+  "PhysicalFileName": "DepartureSeason.json"
+}

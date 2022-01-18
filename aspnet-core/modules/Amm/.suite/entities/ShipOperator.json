@@ -1,0 +1,38 @@
+{
+  "Id": "7bd5bb11-92b1-4920-abf4-406923750427",
+  "Name": "ShipOperator",
+  "OriginalName": "ShipOperator",
+  "NamePlural": "ShipOperators",
+  "DatabaseTableName": "ShipOperators",
+  "Namespace": "ShipOperators",
+  "BaseClass": "Entity",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": false,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": false,
+  "Properties": [
+    {
+      "Id": "55710f3c-7e59-43ee-b861-bb233ccf2651",
+      "Name": "OperatorName",
+      "Type": "string",
+      "EnumType": null,
+      "EnumNamespace": null,
+      "EnumAngularImport": null,
+      "IsNullable": false,
+      "IsRequired": true,
+      "MinLength": null,
+      "MaxLength": 64,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": null,
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    }
+  ],
+  "NavigationProperties": [],
+  "PhysicalFileName": "ShipOperator.json"
+}

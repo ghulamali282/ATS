@@ -1,0 +1,19 @@
+<form [formGroup]="form" novalidate *ngIf="form">
+  <div class="mb-3">
+    <label for="workingYear">Working Year</label>
+    <input
+      #workingYear
+      name="workingYear"
+      id="workingYear"
+      class="form-control"
+      formControlName="workingYear"
+    />
+    <span *ngIf="!form.controls.workingYear.valid"> Please enter correct working year. </span>
+  </div>
+  <abp-button
+    iconclass="fa fa-check"
+    buttonclass="btn btn-primary color-white"
+    (click)="save()"
+    >Save</abp-button
+  >
+</form>

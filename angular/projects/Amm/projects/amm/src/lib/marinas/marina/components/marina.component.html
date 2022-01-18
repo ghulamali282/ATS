@@ -1,0 +1,270 @@
+<abp-page [title]="'Amm::Marinas' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Amm.Marinas.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Amm::NewMarina' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Amm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="marinaNameStringFilter">
+                {{ 'Amm::MarinaNameString' | abpLocalization }}
+              </label>
+
+              <input
+                id="marinaNameStringFilter"
+                class="form-control"
+                [(ngModel)]="filters.marinaNameString"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="latitudeFilter">
+                {{ 'Amm::Latitude' | abpLocalization }}
+              </label>
+
+              <input
+                id="latitudeFilter"
+                class="form-control"
+                [(ngModel)]="filters.latitude"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="longitudeFilter">
+                {{ 'Amm::Longitude' | abpLocalization }}
+              </label>
+
+              <input
+                id="longitudeFilter"
+                class="form-control"
+                [(ngModel)]="filters.longitude"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="marinaNameFilter">
+                {{ 'Amm::MasterData' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="marinaNameFilter"
+                [getFn]="service.getMasterDataLookup"
+                [(ngModel)]="filters.marinaName"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="destinationFilter">
+                {{ 'Amm::Destination' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="destinationFilter"
+                [getFn]="service.getDestinationLookup"
+                [(ngModel)]="filters.destination"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.Marinas.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.Marinas.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::MarinaNameString' | abpLocalization }}" prop="marina.marinaNameString">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.marina.marinaNameString }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Latitude' | abpLocalization }}" prop="marina.latitude">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.marina.latitude }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Longitude' | abpLocalization }}" prop="marina.longitude">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.marina.longitude }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::MasterData' | abpLocalization }}" prop="masterData.name">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.masterData?.name }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Destination' | abpLocalization }}" prop="destination.city">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.destination?.city }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Amm::NewMarina') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="marina-marina-name-string">
+            {{ 'Amm::MarinaNameString' | abpLocalization }} 
+          </label>
+
+          <input
+            id="marina-marina-name-string"
+            formControlName="marinaNameString"
+            class="form-control"
+            maxlength="50"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="marina-latitude">
+            {{ 'Amm::Latitude' | abpLocalization }} *
+          </label>
+
+          <input
+            id="marina-latitude"
+            formControlName="latitude"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="marina-longitude">
+            {{ 'Amm::Longitude' | abpLocalization }} *
+          </label>
+
+          <input
+            id="marina-longitude"
+            formControlName="longitude"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="marina-marina-name">
+            {{ 'Amm::MasterData' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="marina-marina-name"
+            formControlName="marinaName"
+            [getFn]="service.getMasterDataLookup"
+          ></abp-lookup-select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="marina-destination">
+            {{ 'Amm::Destination' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="marina-destination"
+            formControlName="destination"
+            [getFn]="service.getDestinationLookup"
+          ></abp-lookup-select>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

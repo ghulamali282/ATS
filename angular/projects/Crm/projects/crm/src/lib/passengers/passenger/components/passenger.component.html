@@ -1,0 +1,874 @@
+<abp-page [title]="'Crm::Passengers' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Crm.Passengers.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Crm::NewPassenger' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Crm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="reservationFilter">
+                {{ 'Crm::Reservation' | abpLocalization }}
+              </label>
+
+              <input
+                id="reservationFilter"
+                class="form-control"
+                [(ngModel)]="filters.reservation"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="reservationDetailFilter">
+                {{ 'Crm::ReservationDetail' | abpLocalization }}
+              </label>
+
+              <input
+                id="reservationDetailFilter"
+                class="form-control"
+                [(ngModel)]="filters.reservationDetail"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="reservationHolderFilter">
+                  {{ 'Crm::ReservationHolder' | abpLocalization }}
+              </label>
+
+              <select
+                name="reservationHolder"
+                id="reservationHolderFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.reservationHolder"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="titleFilter">
+                {{ 'Crm::Title' | abpLocalization }}
+              </label>
+
+              <input
+                id="titleFilter"
+                class="form-control"
+                [(ngModel)]="filters.title"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="firstNameFilter">
+                {{ 'Crm::FirstName' | abpLocalization }}
+              </label>
+
+              <input
+                id="firstNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.firstName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="lastNameFilter">
+                {{ 'Crm::LastName' | abpLocalization }}
+              </label>
+
+              <input
+                id="lastNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.lastName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="countryFilter">
+                {{ 'Crm::Country' | abpLocalization }}
+              </label>
+
+              <input
+                id="countryFilter"
+                class="form-control"
+                [(ngModel)]="filters.country"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="agePolicyDetailFilter">
+                {{ 'Crm::AgePolicyDetail' | abpLocalization }}
+              </label>
+
+              <input
+                id="agePolicyDetailFilter"
+                class="form-control"
+                [(ngModel)]="filters.agePolicyDetail"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minPassengerDOB">
+                  {{ 'Crm::MinPassengerDOB' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="minPassengerDOB"
+                  class="form-control"
+                  #minPassengerDOBInput
+                  #minPassengerDOBDatepicker="ngbDatepicker"
+                  name="minPassengerDOB"
+                  ngbDatepicker
+                  container="body"
+                  readonly
+                  (click)="minPassengerDOBDatepicker.toggle()"
+                  (keyup.space)="minPassengerDOBDatepicker.toggle()"
+                  [(ngModel)]="filters.passengerDOBMin"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="minPassengerDOBInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="minPassengerDOBDatepicker.writeValue(null); minPassengerDOBDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxPassengerDOB">
+                {{ 'Crm::MaxPassengerDOB' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="maxPassengerDOB"
+                  class="form-control"
+                  #maxPassengerDOBInput
+                  #maxPassengerDOBDatepicker="ngbDatepicker"
+                  name="maxPassengerDOB"
+                  ngbDatepicker
+                  readonly
+                  (click)="maxPassengerDOBDatepicker.toggle()"
+                  (keyup.space)="maxPassengerDOBDatepicker.toggle()"
+                  [(ngModel)]="filters.passengerDOBMax"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="maxPassengerDOBInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="maxPassengerDOBDatepicker.writeValue(null); maxPassengerDOBDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="documentTypeFilter">
+                {{ 'Crm::DocumentType' | abpLocalization }}
+              </label>
+
+              <input
+                id="documentTypeFilter"
+                class="form-control"
+                [(ngModel)]="filters.documentType"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="documentNoFilter">
+                {{ 'Crm::DocumentNo' | abpLocalization }}
+              </label>
+
+              <input
+                id="documentNoFilter"
+                class="form-control"
+                [(ngModel)]="filters.documentNo"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minIssueDate">
+                  {{ 'Crm::MinIssueDate' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="minIssueDate"
+                  class="form-control"
+                  #minIssueDateInput
+                  #minIssueDateDatepicker="ngbDatepicker"
+                  name="minIssueDate"
+                  ngbDatepicker
+                  container="body"
+                  readonly
+                  (click)="minIssueDateDatepicker.toggle()"
+                  (keyup.space)="minIssueDateDatepicker.toggle()"
+                  [(ngModel)]="filters.issueDateMin"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="minIssueDateInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="minIssueDateDatepicker.writeValue(null); minIssueDateDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxIssueDate">
+                {{ 'Crm::MaxIssueDate' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="maxIssueDate"
+                  class="form-control"
+                  #maxIssueDateInput
+                  #maxIssueDateDatepicker="ngbDatepicker"
+                  name="maxIssueDate"
+                  ngbDatepicker
+                  readonly
+                  (click)="maxIssueDateDatepicker.toggle()"
+                  (keyup.space)="maxIssueDateDatepicker.toggle()"
+                  [(ngModel)]="filters.issueDateMax"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="maxIssueDateInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="maxIssueDateDatepicker.writeValue(null); maxIssueDateDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minExpiration">
+                  {{ 'Crm::MinExpiration' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="minExpiration"
+                  class="form-control"
+                  #minExpirationInput
+                  #minExpirationDatepicker="ngbDatepicker"
+                  name="minExpiration"
+                  ngbDatepicker
+                  container="body"
+                  readonly
+                  (click)="minExpirationDatepicker.toggle()"
+                  (keyup.space)="minExpirationDatepicker.toggle()"
+                  [(ngModel)]="filters.expirationMin"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="minExpirationInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="minExpirationDatepicker.writeValue(null); minExpirationDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxExpiration">
+                {{ 'Crm::MaxExpiration' | abpLocalization }}
+              </label>
+
+              <div class="input-group" validationTarget>
+                <input
+                  id="maxExpiration"
+                  class="form-control"
+                  #maxExpirationInput
+                  #maxExpirationDatepicker="ngbDatepicker"
+                  name="maxExpiration"
+                  ngbDatepicker
+                  readonly
+                  (click)="maxExpirationDatepicker.toggle()"
+                  (keyup.space)="maxExpirationDatepicker.toggle()"
+                  [(ngModel)]="filters.expirationMax"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+                <div *ngIf="maxExpirationInput.value" class="input-group-append">
+                  <button
+                    class="btn btn-link px-2"
+                    type="button"
+                    [title]="'AbpUi::Clear' | abpLocalization"
+                    (click)="maxExpirationDatepicker.writeValue(null); maxExpirationDatepicker.manualDateChange(null, true)"
+                  >
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="passengerNoteFilter">
+                {{ 'Crm::PassengerNote' | abpLocalization }}
+              </label>
+
+              <input
+                id="passengerNoteFilter"
+                class="form-control"
+                [(ngModel)]="filters.passengerNote"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minClientNo">
+                {{ 'Crm::MinClientNo' | abpLocalization }}
+              </label>
+
+              <input
+                id="minClientNo"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.clientNoMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxClientNo">
+                {{ 'Crm::MaxClientNo' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxClientNo"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.clientNoMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="reductionFilter">
+                {{ 'Crm::Reduction' | abpLocalization }}
+              </label>
+
+              <input
+                id="reductionFilter"
+                class="form-control"
+                [(ngModel)]="filters.reduction"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Crm.Passengers.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Crm.Passengers.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Reservation' | abpLocalization }}" prop="reservation">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.reservation }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::ReservationDetail' | abpLocalization }}" prop="reservationDetail">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.reservationDetail }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::ReservationHolder' | abpLocalization }}" prop="reservationHolder">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.reservationHolder" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Title' | abpLocalization }}" prop="title">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.title }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::FirstName' | abpLocalization }}" prop="firstName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.firstName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::LastName' | abpLocalization }}" prop="lastName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.lastName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Country' | abpLocalization }}" prop="country">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.country }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::AgePolicyDetail' | abpLocalization }}" prop="agePolicyDetail">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.agePolicyDetail }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::PassengerDOB' | abpLocalization }}" prop="passengerDOB">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.passengerDOB | date }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::DocumentType' | abpLocalization }}" prop="documentType">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.documentType }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::DocumentNo' | abpLocalization }}" prop="documentNo">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.documentNo }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::IssueDate' | abpLocalization }}" prop="issueDate">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.issueDate | date }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Expiration' | abpLocalization }}" prop="expiration">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.expiration | date }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::PassengerNote' | abpLocalization }}" prop="passengerNote">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.passengerNote }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::ClientNo' | abpLocalization }}" prop="clientNo">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.clientNo }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Crm::Reduction' | abpLocalization }}" prop="reduction">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.reduction }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Crm::NewPassenger') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="passenger-reservation">
+            {{ 'Crm::Reservation' | abpLocalization }} *
+          </label>
+
+          <input
+            id="passenger-reservation"
+            formControlName="reservation"
+            class="form-control"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-reservation-detail">
+            {{ 'Crm::ReservationDetail' | abpLocalization }} *
+          </label>
+
+          <input
+            id="passenger-reservation-detail"
+            formControlName="reservationDetail"
+            class="form-control"
+          />
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="passenger-reservation-holder"
+            formControlName="reservationHolder"
+            class="form-check-input"
+          />
+
+          <label
+            for="passenger-reservation-holder"
+            class="form-check-label"
+          >
+              {{ 'Crm::ReservationHolder' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-title">
+            {{ 'Crm::Title' | abpLocalization }} 
+          </label>
+
+          <input
+            id="passenger-title"
+            formControlName="title"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-first-name">
+            {{ 'Crm::FirstName' | abpLocalization }} *
+          </label>
+
+          <input
+            id="passenger-first-name"
+            formControlName="firstName"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-last-name">
+            {{ 'Crm::LastName' | abpLocalization }} *
+          </label>
+
+          <input
+            id="passenger-last-name"
+            formControlName="lastName"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-country">
+            {{ 'Crm::Country' | abpLocalization }} 
+          </label>
+
+          <input
+            id="passenger-country"
+            formControlName="country"
+            class="form-control"
+            maxlength="2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-age-policy-detail">
+            {{ 'Crm::AgePolicyDetail' | abpLocalization }} *
+          </label>
+
+          <input
+            id="passenger-age-policy-detail"
+            formControlName="agePolicyDetail"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-passenger-dob">
+            {{ 'Crm::PassengerDOB' | abpLocalization }} 
+          </label>
+
+          <div class="input-group" validationTarget>
+            <input
+              readonly
+              id="passenger-passenger-dob"
+              formControlName="passengerDOB"
+              class="form-control"
+              ngbDatepicker
+              #passengerDOBInput
+              #passengerDOBDatepicker="ngbDatepicker"
+              (click)="passengerDOBDatepicker.open()"
+              (keyup.space)="passengerDOBDatepicker.open()"
+            />
+            <div *ngIf="passengerDOBInput.value" class="input-group-append">
+              <button
+                class="btn btn-link px-2"
+                type="button"
+                [title]="'AbpUi::Clear' | abpLocalization"
+                (click)="passengerDOBDatepicker.writeValue(null); passengerDOBDatepicker.manualDateChange(null, true)"
+              >
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-document-type">
+            {{ 'Crm::DocumentType' | abpLocalization }} 
+          </label>
+
+          <input
+            id="passenger-document-type"
+            formControlName="documentType"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-document-no">
+            {{ 'Crm::DocumentNo' | abpLocalization }} 
+          </label>
+
+          <input
+            id="passenger-document-no"
+            formControlName="documentNo"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-issue-date">
+            {{ 'Crm::IssueDate' | abpLocalization }} 
+          </label>
+
+          <div class="input-group" validationTarget>
+            <input
+              readonly
+              id="passenger-issue-date"
+              formControlName="issueDate"
+              class="form-control"
+              ngbDatepicker
+              #issueDateInput
+              #issueDateDatepicker="ngbDatepicker"
+              (click)="issueDateDatepicker.open()"
+              (keyup.space)="issueDateDatepicker.open()"
+            />
+            <div *ngIf="issueDateInput.value" class="input-group-append">
+              <button
+                class="btn btn-link px-2"
+                type="button"
+                [title]="'AbpUi::Clear' | abpLocalization"
+                (click)="issueDateDatepicker.writeValue(null); issueDateDatepicker.manualDateChange(null, true)"
+              >
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-expiration">
+            {{ 'Crm::Expiration' | abpLocalization }} 
+          </label>
+
+          <div class="input-group" validationTarget>
+            <input
+              readonly
+              id="passenger-expiration"
+              formControlName="expiration"
+              class="form-control"
+              ngbDatepicker
+              #expirationInput
+              #expirationDatepicker="ngbDatepicker"
+              (click)="expirationDatepicker.open()"
+              (keyup.space)="expirationDatepicker.open()"
+            />
+            <div *ngIf="expirationInput.value" class="input-group-append">
+              <button
+                class="btn btn-link px-2"
+                type="button"
+                [title]="'AbpUi::Clear' | abpLocalization"
+                (click)="expirationDatepicker.writeValue(null); expirationDatepicker.manualDateChange(null, true)"
+              >
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-passenger-note">
+            {{ 'Crm::PassengerNote' | abpLocalization }} 
+          </label>
+
+          <input
+            id="passenger-passenger-note"
+            formControlName="passengerNote"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-client-no">
+            {{ 'Crm::ClientNo' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="passenger-client-no"
+            formControlName="clientNo"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="passenger-reduction">
+            {{ 'Crm::Reduction' | abpLocalization }} *
+          </label>
+
+          <input
+            id="passenger-reduction"
+            formControlName="reduction"
+            class="form-control"
+          />
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

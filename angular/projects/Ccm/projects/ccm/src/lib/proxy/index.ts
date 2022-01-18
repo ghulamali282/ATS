@@ -1,0 +1,18 @@
+import * as AgePolicies from './age-policies';
+import * as AgePolicyDetails from './age-policy-details';
+import * as CancellationPolicies from './cancellation-policies';
+import * as CharterShips from './charter-ships';
+import * as Companies from './companies';
+import * as Countries from './countries';
+import * as Cruises from './cruises';
+import * as DepartureSeasons from './departure-seasons';
+import * as Departures from './departures';
+import * as Destinations from './destinations';
+import * as Itineraries from './itineraries';
+import * as ItineraryDetails from './itinerary-details';
+import * as MasterDatas from './master-datas';
+import * as Partners from './partners';
+import * as PaymentPolicies from './payment-policies';
+import * as Shared from './shared';
+import * as Ships from './ships';
+export { AgePolicies, AgePolicyDetails, CancellationPolicies, CharterShips, Companies, Countries, Cruises, DepartureSeasons, Departures, Destinations, Itineraries, ItineraryDetails, MasterDatas, Partners, PaymentPolicies, Shared, Ships };

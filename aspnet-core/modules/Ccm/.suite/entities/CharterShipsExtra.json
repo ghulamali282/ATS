@@ -1,0 +1,57 @@
+{
+  "Id": "59e261a0-6c73-4c65-b5e4-194e5ae1d52a",
+  "Name": "CharterShipsExtra",
+  "OriginalName": "CharterShipsExtra",
+  "NamePlural": "CharterShipsExtras",
+  "DatabaseTableName": "CharterShipsExtras",
+  "Namespace": "CharterShipsExtras",
+  "BaseClass": "Entity",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": true,
+  "ShouldCreateUserInterface": true,
+  "ShouldCreateBackend": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": false,
+  "Properties": [
+      {
+      "Id": "1a255945-37d6-455e-9906-a1553b49894a",
+      "Name": "Ship",
+      "Type": "Guid",
+      "EnumType": null,
+      "EnumNamespace": null,
+      "EnumAngularImport": null,
+      "IsNullable": false,
+      "IsRequired": true,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": null,
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    },
+    {
+      "Id": "b87e0db7-8243-4439-a6a1-4d3c59cfb9c9",
+      "Name": "IsDisabled",
+      "Type": "bool",
+      "EnumType": null,
+      "EnumNamespace": null,
+      "EnumAngularImport": null,
+      "IsNullable": false,
+      "IsRequired": true,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": null,
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    }
+
+  ],
+  "NavigationProperties": [],
+  "PhysicalFileName": "CharterShipsExtra.json"
+}

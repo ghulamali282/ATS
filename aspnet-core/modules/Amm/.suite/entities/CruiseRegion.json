@@ -1,0 +1,54 @@
+{
+  "Id": "4a71b538-c4ae-42fe-bec9-6c2430a968cd",
+  "Name": "CruiseRegion",
+  "OriginalName": "CruiseRegion",
+  "NamePlural": "CruiseRegions",
+  "DatabaseTableName": "CruiseRegions",
+  "Namespace": "CruiseRegions",
+  "BaseClass": "Entity",
+  "PrimaryKeyType": "Guid",
+  "IsMultiTenant": false,
+  "ShouldCreateUserInterface": false,
+  "ShouldCreateBackend": true,
+  "ShouldAddMigration": true,
+  "ShouldUpdateDatabase": true,
+  "CreateTests": false,
+  "Properties": [
+    {
+      "Id": "e1fddaeb-d3a0-407b-99c9-5ed5a27dd977",
+      "Name": "FreeEntry",
+      "Type": "string",
+      "EnumType": "",
+      "EnumNamespace": "",
+      "EnumAngularImport": "shared/enums",
+      "IsNullable": false,
+      "IsRequired": false,
+      "MinLength": null,
+      "MaxLength": null,
+      "SortOrder": 0,
+      "SortType": 0,
+      "Regex": "",
+      "EmailValidation": false,
+      "EnumValues": null,
+      "IsSelected": true
+    }
+  ],
+  "NavigationProperties": [
+    {
+      "Namespace": "Amm.MasterDatas",
+      "EntityName": "MasterData",
+      "EntityNameWithDuplicationNumber": "MasterData",
+      "EntitySetNameWithDuplicationNumber": "MasterDatas",
+      "EntitySetName": "MasterDatas",
+      "DtoNamespace": "Amm.MasterDatas",
+      "DtoEntityName": "MasterDataDto",
+      "Type": "Guid",
+      "Name": "CruiseRegionName",
+      "ReferencePropertyName": "CruiseRegionName",
+      "DisplayProperty": "Name",
+      "UiPickType": "Dropdown",
+      "IsRequired": true
+    }
+  ],
+  "PhysicalFileName": "CruiseRegion.json"
+}

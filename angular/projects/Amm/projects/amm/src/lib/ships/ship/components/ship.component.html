@@ -1,0 +1,1133 @@
+<abp-page [title]="'Amm::Ships' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Amm.Ships.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Amm::NewShip' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Amm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipNameFilter">
+                {{ 'Amm::ShipName' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.shipName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minYearBuild">
+                {{ 'Amm::MinYearBuild' | abpLocalization }}
+              </label>
+
+              <input
+                id="minYearBuild"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.yearBuildMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxYearBuild">
+                {{ 'Amm::MaxYearBuild' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxYearBuild"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.yearBuildMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minYearRefurbished">
+                {{ 'Amm::MinYearRefurbished' | abpLocalization }}
+              </label>
+
+              <input
+                id="minYearRefurbished"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.yearRefurbishedMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxYearRefurbished">
+                {{ 'Amm::MaxYearRefurbished' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxYearRefurbished"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.yearRefurbishedMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="ensuitedCabinsFilter">
+                  {{ 'Amm::EnsuitedCabins' | abpLocalization }}
+              </label>
+
+              <select
+                name="ensuitedCabins"
+                id="ensuitedCabinsFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.ensuitedCabins"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minSharedToilets">
+                {{ 'Amm::MinSharedToilets' | abpLocalization }}
+              </label>
+
+              <input
+                id="minSharedToilets"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.sharedToiletsMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxSharedToilets">
+                {{ 'Amm::MaxSharedToilets' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxSharedToilets"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.sharedToiletsMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minSharedShowers">
+                {{ 'Amm::MinSharedShowers' | abpLocalization }}
+              </label>
+
+              <input
+                id="minSharedShowers"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.sharedShowersMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxSharedShowers">
+                {{ 'Amm::MaxSharedShowers' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxSharedShowers"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.sharedShowersMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minCrewNo">
+                {{ 'Amm::MinCrewNo' | abpLocalization }}
+              </label>
+
+              <input
+                id="minCrewNo"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.crewNoMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxCrewNo">
+                {{ 'Amm::MaxCrewNo' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxCrewNo"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.crewNoMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minLenght">
+                {{ 'Amm::MinLenght' | abpLocalization }}
+              </label>
+
+              <input
+                id="minLenght"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.lenghtMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxLenght">
+                {{ 'Amm::MaxLenght' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxLenght"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.lenghtMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minBeam">
+                {{ 'Amm::MinBeam' | abpLocalization }}
+              </label>
+
+              <input
+                id="minBeam"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.beamMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxBeam">
+                {{ 'Amm::MaxBeam' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxBeam"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.beamMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minDraft">
+                {{ 'Amm::MinDraft' | abpLocalization }}
+              </label>
+
+              <input
+                id="minDraft"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.draftMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxDraft">
+                {{ 'Amm::MaxDraft' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxDraft"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.draftMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minCruiseSpeed">
+                {{ 'Amm::MinCruiseSpeed' | abpLocalization }}
+              </label>
+
+              <input
+                id="minCruiseSpeed"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.cruiseSpeedMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxCruiseSpeed">
+                {{ 'Amm::MaxCruiseSpeed' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxCruiseSpeed"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.cruiseSpeedMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minMaxSpeed">
+                {{ 'Amm::MinMaxSpeed' | abpLocalization }}
+              </label>
+
+              <input
+                id="minMaxSpeed"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.maxSpeedMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxMaxSpeed">
+                {{ 'Amm::MaxMaxSpeed' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxMaxSpeed"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.maxSpeedMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="videoUrlFilter">
+                {{ 'Amm::VideoUrl' | abpLocalization }}
+              </label>
+
+              <input
+                id="videoUrlFilter"
+                class="form-control"
+                [(ngModel)]="filters.videoUrl"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="useCabinDeckPositionFilter">
+                  {{ 'Amm::UseCabinDeckPosition' | abpLocalization }}
+              </label>
+
+              <select
+                name="useCabinDeckPosition"
+                id="useCabinDeckPositionFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.useCabinDeckPosition"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="useDeckLocationFilter">
+                  {{ 'Amm::UseDeckLocation' | abpLocalization }}
+              </label>
+
+              <select
+                name="useDeckLocation"
+                id="useDeckLocationFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.useDeckLocation"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipEnabledFilter">
+                  {{ 'Amm::ShipEnabled' | abpLocalization }}
+              </label>
+
+              <select
+                name="shipEnabled"
+                id="shipEnabledFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.shipEnabled"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipOperatorFilter">
+                {{ 'Amm::ShipOperator' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipOperatorFilter"
+                class="form-control"
+                [(ngModel)]="filters.shipOperator"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="homePortFilter">
+                {{ 'Amm::Destination' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="homePortFilter"
+                [getFn]="service.getDestinationLookup"
+                [(ngModel)]="filters.homePort"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="flagFilter">
+                {{ 'Amm::Country' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="flagFilter"
+                [getFn]="service.getCountryLookup"
+                [(ngModel)]="filters.flag"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipCategoryFilter">
+                {{ 'Amm::MasterData' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="shipCategoryFilter"
+                [getFn]="service.getMasterDataLookup"
+                [(ngModel)]="filters.shipCategory"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipOperatorFilter">
+                {{ 'Amm::ShipOperator' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="shipOperatorFilter"
+                [getFn]="service.getShipOperatorLookup"
+                [(ngModel)]="filters.shipOperator"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.Ships.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.Ships.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+                
+<!--                 <a ngbDropdownItem routerLink="/amm/ship-decks" [state]="{ ShipId: row.id}"
+                    >{{ 'Amm::ShipDecks' | abpLocalization }}
+                  <span
+                      *ngIf="row.lenght"
+                      class="badge badge-info float-right"
+                      [style.font-size.%]="75"
+                      >{{ row.length }}</span 
+                    ></a> -->
+
+                <button
+                ngbDropdownItem
+                *abpPermission="'Amm.Ships.Delete'"
+                (click)="delete(row)"
+              >
+                {{ 'Amm::ShipDecks' | abpLocalization }}
+              </button>
+
+              <button
+              ngbDropdownItem
+              *abpPermission="'Amm.Ships.Delete'"
+              (click)="delete(row)"
+            >
+              {{ 'Amm::ShipCabinTypes' | abpLocalization }}
+            </button>
+            
+            <button
+            ngbDropdownItem
+            *abpPermission="'Amm.Ships.Delete'"
+            (click)="delete(row)"
+          >
+            {{ 'Amm::ShpCabins' | abpLocalization }}
+          </button>
+
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::ShipName' | abpLocalization }}" prop="ship.shipName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.shipName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::YearBuild' | abpLocalization }}" prop="ship.yearBuild">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.yearBuild }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::YearRefurbished' | abpLocalization }}" prop="ship.yearRefurbished">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.yearRefurbished }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::EnsuitedCabins' | abpLocalization }}" prop="ship.ensuitedCabins">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.ship.ensuitedCabins" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::SharedToilets' | abpLocalization }}" prop="ship.sharedToilets">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.sharedToilets }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::SharedShowers' | abpLocalization }}" prop="ship.sharedShowers">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.sharedShowers }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CrewNo' | abpLocalization }}" prop="ship.crewNo">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.crewNo }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Lenght' | abpLocalization }}" prop="ship.lenght">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.lenght }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Beam' | abpLocalization }}" prop="ship.beam">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.beam }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Draft' | abpLocalization }}" prop="ship.draft">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.draft }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CruiseSpeed' | abpLocalization }}" prop="ship.cruiseSpeed">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.cruiseSpeed }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::MaxSpeed' | abpLocalization }}" prop="ship.maxSpeed">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.maxSpeed }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::VideoUrl' | abpLocalization }}" prop="ship.videoUrl">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.videoUrl }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::UseCabinDeckPosition' | abpLocalization }}" prop="ship.useCabinDeckPosition">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.ship.useCabinDeckPosition" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::UseDeckLocation' | abpLocalization }}" prop="ship.useDeckLocation">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.ship.useDeckLocation" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::ShipEnabled' | abpLocalization }}" prop="ship.shipEnabled">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.ship.shipEnabled" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::ShipOperator' | abpLocalization }}" prop="ship.shipOperator">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship.shipOperator }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Destination' | abpLocalization }}" prop="destination.city">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.destination?.city }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Country' | abpLocalization }}" prop="country.countryName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.country?.countryName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::MasterData' | abpLocalization }}" prop="masterData.name">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.masterData?.name }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::ShipOperator' | abpLocalization }}" prop="shipOperator.operatorName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.shipOperator?.operatorName }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Amm::NewShip') | abpLocalization }}
+    </h3>
+    
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-ship-category">
+                {{ 'Amm::ShipCategory' | abpLocalization }} *
+              </label>
+              <abp-lookup-select
+                cid="ship-ship-category"
+                formControlName="shipCategory"
+                [getFn]="service.getMasterDataLookup"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-ship-name">
+                {{ 'Amm::ShipName' | abpLocalization }} *
+              </label>
+    
+              <input
+                id="ship-ship-name"
+                formControlName="shipName"
+                class="form-control"
+                maxlength="50"
+                autofocus
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+
+            <div class="mb-3">
+              <label class="form-label" for="ship-flag">
+                {{ 'Amm::Flag' | abpLocalization }} *
+              </label>
+    
+              <abp-lookup-select
+                cid="ship-flag"
+                formControlName="flag"
+                [getFn]="service.getCountryLookup"
+              ></abp-lookup-select>
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-home-port">
+                {{ 'Amm::HomePort' | abpLocalization }} *
+              </label>
+    
+              <abp-lookup-select
+                cid="ship-home-port"
+                formControlName="homePort"
+                [getFn]="service.getDestinationLookup"
+              ></abp-lookup-select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-year-build">
+                {{ 'Amm::YearBuild' | abpLocalization }} *
+              </label>
+    
+              <input
+                type="number"
+                id="ship-year-build"
+                formControlName="yearBuild"
+                class="form-control"
+              />
+            </div> 
+          </div>
+
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-year-refurbished">
+                {{ 'Amm::YearRefurbished' | abpLocalization }} 
+              </label>
+    
+              <input
+                type="number"
+                id="ship-year-refurbished"
+                formControlName="yearRefurbished"
+                class="form-control"
+              />
+            </div> 
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-crew-no">
+                {{ 'Amm::CrewNo' | abpLocalization }} *
+              </label>
+    
+              <input
+                type="number"
+                id="ship-crew-no"
+                formControlName="crewNo"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-shared-toilets">
+                {{ 'Amm::SharedToilets' | abpLocalization }} 
+              </label>
+    
+              <input
+                type="number"
+                id="ship-shared-toilets"
+                formControlName="sharedToilets"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-shared-showers">
+                {{ 'Amm::SharedShowers' | abpLocalization }} 
+              </label>
+    
+              <input
+                type="number"
+                id="ship-shared-showers"
+                formControlName="sharedShowers"
+                class="form-control"
+              />
+            </div>  
+          </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-lenght">
+                {{ 'Amm::Lenght' | abpLocalization }} *
+              </label>
+    
+              <input
+                type="number"
+                id="ship-lenght"
+                formControlName="lenght"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-beam">
+                {{ 'Amm::Beam' | abpLocalization }} *
+              </label>
+    
+              <input
+                type="number"
+                id="ship-beam"
+                formControlName="beam"
+                class="form-control"
+              />
+            </div> 
+          </div>
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-draft">
+                {{ 'Amm::Draft' | abpLocalization }} *
+              </label>
+    
+              <input
+                type="number"
+                id="ship-draft"
+                formControlName="draft"
+                class="form-control"
+              />
+            </div>  
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-cruise-speed">
+                {{ 'Amm::CruiseSpeed' | abpLocalization }} *
+              </label>
+    
+              <input
+                type="number"
+                id="ship-cruise-speed"
+                formControlName="cruiseSpeed"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="col-sm">
+            <div class="mb-3">
+              <label class="form-label" for="ship-max-speed">
+                {{ 'Amm::MaxSpeed' | abpLocalization }} *
+              </label>
+    
+              <input
+                type="number"
+                id="ship-max-speed"
+                formControlName="maxSpeed"
+                class="form-control"
+              />
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="mb-3">
+          <label class="form-label" for="ship-video-url">
+            {{ 'Amm::VideoUrl' | abpLocalization }} 
+          </label>
+
+          <input
+            id="ship-video-url"
+            formControlName="videoUrl"
+            class="form-control"
+            maxlength="500"
+          />
+        </div>
+        
+        <div class="mb-3">
+        <label class="form-label" for="ship-ship-operator">
+          {{ 'Amm::ShipOperator' | abpLocalization }} 
+        </label>
+
+        <abp-lookup-select
+          cid="ship-ship-operator"
+          formControlName="shipOperator"
+          [getFn]="service.getShipOperatorLookup"
+        ></abp-lookup-select>
+      </div>
+
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="ship-ensuited-cabins"
+            formControlName="ensuitedCabins"
+            class="form-check-input"
+          />
+
+          <label
+            for="ship-ensuited-cabins"
+            class="form-check-label"
+          >
+              {{ 'Amm::EnsuitedCabins' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="ship-use-cabin-deck-position"
+            formControlName="useCabinDeckPosition"
+            class="form-check-input"
+          />
+
+          <label
+            for="ship-use-cabin-deck-position"
+            class="form-check-label"
+          >
+              {{ 'Amm::UseCabinDeckPosition' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="ship-use-deck-location"
+            formControlName="useDeckLocation"
+            class="form-check-input"
+          />
+
+          <label
+            for="ship-use-deck-location"
+            class="form-check-label"
+          >
+              {{ 'Amm::UseDeckLocation' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="ship-ship-enabled"
+            formControlName="shipEnabled"
+            class="form-check-input"
+          />
+
+          <label
+            for="ship-ship-enabled"
+            class="form-check-label"
+          >
+              {{ 'Amm::ShipEnabled' | abpLocalization }} 
+          </label>
+        </div>
+
+
+
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

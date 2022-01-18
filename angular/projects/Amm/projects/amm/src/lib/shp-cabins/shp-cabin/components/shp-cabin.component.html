@@ -1,0 +1,712 @@
+<abp-page [title]="'Amm::ShpCabins' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Amm.ShpCabins.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Amm::NewShpCabin' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Amm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="shipFilter">
+                {{ 'Amm::Ship' | abpLocalization }}
+              </label>
+
+              <input
+                id="shipFilter"
+                class="form-control"
+                [(ngModel)]="filters.ship"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cabinCategoryFilter">
+                {{ 'Amm::CabinCategory' | abpLocalization }}
+              </label>
+
+              <input
+                id="cabinCategoryFilter"
+                class="form-control"
+                [(ngModel)]="filters.cabinCategory"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="cabinNoFilter">
+                {{ 'Amm::CabinNo' | abpLocalization }}
+              </label>
+
+              <input
+                id="cabinNoFilter"
+                class="form-control"
+                [(ngModel)]="filters.cabinNo"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minCabinNoNumeric">
+                {{ 'Amm::MinCabinNoNumeric' | abpLocalization }}
+              </label>
+
+              <input
+                id="minCabinNoNumeric"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.cabinNoNumericMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxCabinNoNumeric">
+                {{ 'Amm::MaxCabinNoNumeric' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxCabinNoNumeric"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.cabinNoNumericMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="bedLayoutFilter">
+                {{ 'Amm::BedLayout' | abpLocalization }}
+              </label>
+
+              <input
+                id="bedLayoutFilter"
+                class="form-control"
+                [(ngModel)]="filters.bedLayout"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minStandardCapacity">
+                {{ 'Amm::MinStandardCapacity' | abpLocalization }}
+              </label>
+
+              <input
+                id="minStandardCapacity"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.standardCapacityMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxStandardCapacity">
+                {{ 'Amm::MaxStandardCapacity' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxStandardCapacity"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.standardCapacityMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minMaxCapacity">
+                {{ 'Amm::MinMaxCapacity' | abpLocalization }}
+              </label>
+
+              <input
+                id="minMaxCapacity"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.maxCapacityMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxMaxCapacity">
+                {{ 'Amm::MaxMaxCapacity' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxMaxCapacity"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.maxCapacityMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="portoholeFilter">
+                  {{ 'Amm::Portohole' | abpLocalization }}
+              </label>
+
+              <select
+                name="portohole"
+                id="portoholeFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.portohole"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="windowFilter">
+                  {{ 'Amm::Window' | abpLocalization }}
+              </label>
+
+              <select
+                name="window"
+                id="windowFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.window"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minCabinArea">
+                {{ 'Amm::MinCabinArea' | abpLocalization }}
+              </label>
+
+              <input
+                id="minCabinArea"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.cabinAreaMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxCabinArea">
+                {{ 'Amm::MaxCabinArea' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxCabinArea"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.cabinAreaMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="balconFilter">
+                  {{ 'Amm::Balcon' | abpLocalization }}
+              </label>
+
+              <select
+                name="balcon"
+                id="balconFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.balcon"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="minBalconArea">
+                {{ 'Amm::MinBalconArea' | abpLocalization }}
+              </label>
+
+              <input
+                id="minBalconArea"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.balconAreaMin"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="maxBalconArea">
+                {{ 'Amm::MaxBalconArea' | abpLocalization }}
+              </label>
+
+              <input
+                id="maxBalconArea"
+                type="number"
+                class="form-control"
+                [(ngModel)]="filters.balconAreaMax"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="isDisabledFilter">
+                  {{ 'Amm::IsDisabled' | abpLocalization }}
+              </label>
+
+              <select
+                name="isDisabled"
+                id="isDisabledFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.isDisabled"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.ShpCabins.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Amm.ShpCabins.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Ship' | abpLocalization }}" prop="ship">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.ship }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CabinCategory' | abpLocalization }}" prop="cabinCategory">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cabinCategory }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CabinNo' | abpLocalization }}" prop="cabinNo">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cabinNo }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CabinNoNumeric' | abpLocalization }}" prop="cabinNoNumeric">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cabinNoNumeric }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::BedLayout' | abpLocalization }}" prop="bedLayout">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.bedLayout }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::StandardCapacity' | abpLocalization }}" prop="standardCapacity">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.standardCapacity }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::MaxCapacity' | abpLocalization }}" prop="maxCapacity">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.maxCapacity }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Portohole' | abpLocalization }}" prop="portohole">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.portohole" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Window' | abpLocalization }}" prop="window">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.window" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::CabinArea' | abpLocalization }}" prop="cabinArea">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.cabinArea }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::Balcon' | abpLocalization }}" prop="balcon">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.balcon" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::BalconArea' | abpLocalization }}" prop="balconArea">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.balconArea }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Amm::IsDisabled' | abpLocalization }}" prop="isDisabled">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.isDisabled" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Amm::NewShpCabin') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="shp-cabin-ship">
+            {{ 'Amm::Ship' | abpLocalization }} *
+          </label>
+
+          <input
+            id="shp-cabin-ship"
+            formControlName="ship"
+            class="form-control"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="shp-cabin-cabin-category">
+            {{ 'Amm::CabinCategory' | abpLocalization }} *
+          </label>
+
+          <input
+            id="shp-cabin-cabin-category"
+            formControlName="cabinCategory"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="shp-cabin-cabin-no">
+            {{ 'Amm::CabinNo' | abpLocalization }} *
+          </label>
+
+          <input
+            id="shp-cabin-cabin-no"
+            formControlName="cabinNo"
+            class="form-control"
+            maxlength="10"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="shp-cabin-cabin-no-numeric">
+            {{ 'Amm::CabinNoNumeric' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="shp-cabin-cabin-no-numeric"
+            formControlName="cabinNoNumeric"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="shp-cabin-bed-layout">
+            {{ 'Amm::BedLayout' | abpLocalization }} *
+          </label>
+
+          <input
+            id="shp-cabin-bed-layout"
+            formControlName="bedLayout"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="shp-cabin-standard-capacity">
+            {{ 'Amm::StandardCapacity' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="shp-cabin-standard-capacity"
+            formControlName="standardCapacity"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="shp-cabin-max-capacity">
+            {{ 'Amm::MaxCapacity' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="shp-cabin-max-capacity"
+            formControlName="maxCapacity"
+            class="form-control"
+          />
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="shp-cabin-portohole"
+            formControlName="portohole"
+            class="form-check-input"
+          />
+
+          <label
+            for="shp-cabin-portohole"
+            class="form-check-label"
+          >
+              {{ 'Amm::Portohole' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="shp-cabin-window"
+            formControlName="window"
+            class="form-check-input"
+          />
+
+          <label
+            for="shp-cabin-window"
+            class="form-check-label"
+          >
+              {{ 'Amm::Window' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="shp-cabin-cabin-area">
+            {{ 'Amm::CabinArea' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="shp-cabin-cabin-area"
+            formControlName="cabinArea"
+            class="form-control"
+          />
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="shp-cabin-balcon"
+            formControlName="balcon"
+            class="form-check-input"
+          />
+
+          <label
+            for="shp-cabin-balcon"
+            class="form-check-label"
+          >
+              {{ 'Amm::Balcon' | abpLocalization }} *
+          </label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="shp-cabin-balcon-area">
+            {{ 'Amm::BalconArea' | abpLocalization }} *
+          </label>
+
+          <input
+            type="number"
+            id="shp-cabin-balcon-area"
+            formControlName="balconArea"
+            class="form-control"
+          />
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="shp-cabin-is-disabled"
+            formControlName="isDisabled"
+            class="form-check-input"
+          />
+
+          <label
+            for="shp-cabin-is-disabled"
+            class="form-check-label"
+          >
+              {{ 'Amm::IsDisabled' | abpLocalization }} *
+          </label>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>

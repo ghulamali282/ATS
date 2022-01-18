@@ -1,0 +1,3090 @@
+{
+  "generated": [
+    "crm"
+  ],
+  "modules": {
+    "crm": {
+      "rootPath": "crm",
+      "remoteServiceName": "Crm",
+      "controllers": {
+        "Crm.Controllers.Contracts.ContractController": {
+          "controllerName": "Contract",
+          "type": "Crm.Controllers.Contracts.ContractController",
+          "interfaces": [
+            {
+              "type": "Crm.Contracts.IContractAppService"
+            }
+          ],
+          "actions": {
+            "GetListAsyncByInput": {
+              "uniqueName": "GetListAsyncByInput",
+              "name": "GetListAsync",
+              "httpMethod": "GET",
+              "url": "api/crm/contracts",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Crm.Contracts.GetContractsInput, Crm.Application.Contracts",
+                  "type": "Crm.Contracts.GetContractsInput",
+                  "typeSimple": "Crm.Contracts.GetContractsInput",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "FilterText",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "OperatorName",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SeasonMin",
+                  "jsonName": null,
+                  "type": "System.Int?",
+                  "typeSimple": "number?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SeasonMax",
+                  "jsonName": null,
+                  "type": "System.Int?",
+                  "typeSimple": "number?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IsEnabledAgent",
+                  "jsonName": null,
+                  "type": "System.Bool?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IsEnabledOperator",
+                  "jsonName": null,
+                  "type": "System.Bool?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Sorting",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SkipCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "MaxResultCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<Crm.Contracts.ContractDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<Crm.Contracts.ContractDto>"
+              }
+            },
+            "GetAsyncById": {
+              "uniqueName": "GetAsyncById",
+              "name": "GetAsync",
+              "httpMethod": "GET",
+              "url": "api/crm/contracts/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Crm.Contracts.ContractDto",
+                "typeSimple": "Crm.Contracts.ContractDto"
+              }
+            },
+            "CreateAsyncByInput": {
+              "uniqueName": "CreateAsyncByInput",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/crm/contracts",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Crm.Contracts.ContractCreateDto, Crm.Application.Contracts",
+                  "type": "Crm.Contracts.ContractCreateDto",
+                  "typeSimple": "Crm.Contracts.ContractCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Crm.Contracts.ContractCreateDto",
+                  "typeSimple": "Crm.Contracts.ContractCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Crm.Contracts.ContractDto",
+                "typeSimple": "Crm.Contracts.ContractDto"
+              }
+            },
+            "UpdateAsyncByIdAndInput": {
+              "uniqueName": "UpdateAsyncByIdAndInput",
+              "name": "UpdateAsync",
+              "httpMethod": "PUT",
+              "url": "api/crm/contracts/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "input",
+                  "typeAsString": "Crm.Contracts.ContractUpdateDto, Crm.Application.Contracts",
+                  "type": "Crm.Contracts.ContractUpdateDto",
+                  "typeSimple": "Crm.Contracts.ContractUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Crm.Contracts.ContractUpdateDto",
+                  "typeSimple": "Crm.Contracts.ContractUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Crm.Contracts.ContractDto",
+                "typeSimple": "Crm.Contracts.ContractDto"
+              }
+            },
+            "DeleteAsyncById": {
+              "uniqueName": "DeleteAsyncById",
+              "name": "DeleteAsync",
+              "httpMethod": "DELETE",
+              "url": "api/crm/contracts/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              }
+            }
+          }
+        },
+        "Crm.Controllers.Clients.ClientController": {
+          "controllerName": "Client",
+          "type": "Crm.Controllers.Clients.ClientController",
+          "interfaces": [
+            {
+              "type": "Crm.Clients.IClientAppService"
+            }
+          ],
+          "actions": {
+            "GetListAsyncByInput": {
+              "uniqueName": "GetListAsyncByInput",
+              "name": "GetListAsync",
+              "httpMethod": "GET",
+              "url": "api/crm/clients",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Crm.Clients.GetClientsInput, Crm.Application.Contracts",
+                  "type": "Crm.Clients.GetClientsInput",
+                  "typeSimple": "Crm.Clients.GetClientsInput",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "FilterText",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Title",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "FirstName",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SecondName",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Gender",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ClientDOBMin",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ClientDOBMax",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "AgePolicy",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Email",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "EmailConfirmed",
+                  "jsonName": null,
+                  "type": "System.Bool?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Country",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Nacionality",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "State",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ZipCode",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "City",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "CellPhone",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "CellPhoneConfirmed",
+                  "jsonName": null,
+                  "type": "System.Bool?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "DocumentType",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "DocumentNo",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IssueDateMin",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IssueDateMax",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ExpirationMin",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ExpirationMax",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "MailingList",
+                  "jsonName": null,
+                  "type": "System.Bool?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Sorting",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SkipCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "MaxResultCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<Crm.Clients.ClientDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<Crm.Clients.ClientDto>"
+              }
+            },
+            "GetAsyncById": {
+              "uniqueName": "GetAsyncById",
+              "name": "GetAsync",
+              "httpMethod": "GET",
+              "url": "api/crm/clients/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Crm.Clients.ClientDto",
+                "typeSimple": "Crm.Clients.ClientDto"
+              }
+            },
+            "CreateAsyncByInput": {
+              "uniqueName": "CreateAsyncByInput",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/crm/clients",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Crm.Clients.ClientCreateDto, Crm.Application.Contracts",
+                  "type": "Crm.Clients.ClientCreateDto",
+                  "typeSimple": "Crm.Clients.ClientCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Crm.Clients.ClientCreateDto",
+                  "typeSimple": "Crm.Clients.ClientCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Crm.Clients.ClientDto",
+                "typeSimple": "Crm.Clients.ClientDto"
+              }
+            },
+            "UpdateAsyncByIdAndInput": {
+              "uniqueName": "UpdateAsyncByIdAndInput",
+              "name": "UpdateAsync",
+              "httpMethod": "PUT",
+              "url": "api/crm/clients/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "input",
+                  "typeAsString": "Crm.Clients.ClientUpdateDto, Crm.Application.Contracts",
+                  "type": "Crm.Clients.ClientUpdateDto",
+                  "typeSimple": "Crm.Clients.ClientUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Crm.Clients.ClientUpdateDto",
+                  "typeSimple": "Crm.Clients.ClientUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Crm.Clients.ClientDto",
+                "typeSimple": "Crm.Clients.ClientDto"
+              }
+            },
+            "DeleteAsyncById": {
+              "uniqueName": "DeleteAsyncById",
+              "name": "DeleteAsync",
+              "httpMethod": "DELETE",
+              "url": "api/crm/clients/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              }
+            }
+          }
+        },
+        "Crm.Controllers.Passengers.PassengerController": {
+          "controllerName": "Passenger",
+          "type": "Crm.Controllers.Passengers.PassengerController",
+          "interfaces": [
+            {
+              "type": "Crm.Passengers.IPassengerAppService"
+            }
+          ],
+          "actions": {
+            "GetListAsyncByInput": {
+              "uniqueName": "GetListAsyncByInput",
+              "name": "GetListAsync",
+              "httpMethod": "GET",
+              "url": "api/crm/passengers",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Crm.Passengers.GetPassengersInput, Crm.Application.Contracts",
+                  "type": "Crm.Passengers.GetPassengersInput",
+                  "typeSimple": "Crm.Passengers.GetPassengersInput",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "FilterText",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Reservation",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ReservationDetail",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ReservationHolder",
+                  "jsonName": null,
+                  "type": "System.Bool?",
+                  "typeSimple": "boolean?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Title",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "FirstName",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "LastName",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Country",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "AgePolicyDetail",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "PassengerDOBMin",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "PassengerDOBMax",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "DocumentType",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "DocumentNo",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IssueDateMin",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "IssueDateMax",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ExpirationMin",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ExpirationMax",
+                  "jsonName": null,
+                  "type": "System.DateTime?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "PassengerNote",
+                  "jsonName": null,
+                  "type": "System.String?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ClientNoMin",
+                  "jsonName": null,
+                  "type": "System.Int?",
+                  "typeSimple": "number?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "ClientNoMax",
+                  "jsonName": null,
+                  "type": "System.Int?",
+                  "typeSimple": "number?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Reduction",
+                  "jsonName": null,
+                  "type": "System.Guid?",
+                  "typeSimple": "string?",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "Sorting",
+                  "jsonName": null,
+                  "type": "System.String",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "SkipCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "MaxResultCount",
+                  "jsonName": null,
+                  "type": "System.Int32",
+                  "typeSimple": "number",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "ModelBinding",
+                  "descriptorName": "input"
+                }
+              ],
+              "returnValue": {
+                "type": "Volo.Abp.Application.Dtos.PagedResultDto<Crm.Passengers.PassengerDto>",
+                "typeSimple": "Volo.Abp.Application.Dtos.PagedResultDto<Crm.Passengers.PassengerDto>"
+              }
+            },
+            "GetAsyncById": {
+              "uniqueName": "GetAsyncById",
+              "name": "GetAsync",
+              "httpMethod": "GET",
+              "url": "api/crm/passengers/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Crm.Passengers.PassengerDto",
+                "typeSimple": "Crm.Passengers.PassengerDto"
+              }
+            },
+            "CreateAsyncByInput": {
+              "uniqueName": "CreateAsyncByInput",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/crm/passengers",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Crm.Passengers.PassengerCreateDto, Crm.Application.Contracts",
+                  "type": "Crm.Passengers.PassengerCreateDto",
+                  "typeSimple": "Crm.Passengers.PassengerCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Crm.Passengers.PassengerCreateDto",
+                  "typeSimple": "Crm.Passengers.PassengerCreateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Crm.Passengers.PassengerDto",
+                "typeSimple": "Crm.Passengers.PassengerDto"
+              }
+            },
+            "UpdateAsyncByIdAndInput": {
+              "uniqueName": "UpdateAsyncByIdAndInput",
+              "name": "UpdateAsync",
+              "httpMethod": "PUT",
+              "url": "api/crm/passengers/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                },
+                {
+                  "name": "input",
+                  "typeAsString": "Crm.Passengers.PassengerUpdateDto, Crm.Application.Contracts",
+                  "type": "Crm.Passengers.PassengerUpdateDto",
+                  "typeSimple": "Crm.Passengers.PassengerUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                },
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Crm.Passengers.PassengerUpdateDto",
+                  "typeSimple": "Crm.Passengers.PassengerUpdateDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Crm.Passengers.PassengerDto",
+                "typeSimple": "Crm.Passengers.PassengerDto"
+              }
+            },
+            "DeleteAsyncById": {
+              "uniqueName": "DeleteAsyncById",
+              "name": "DeleteAsync",
+              "httpMethod": "DELETE",
+              "url": "api/crm/passengers/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "System.Void",
+                "typeSimple": "System.Void"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "types": {
+    "Crm.Shared.LookupRequestDto": {
+      "baseType": "Volo.Abp.Application.Dtos.PagedResultRequestDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Filter",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        }
+      ]
+    },
+    "Crm.Shared.LookupDto<T0>": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TKey"
+      ],
+      "properties": [
+        {
+          "name": "Id",
+          "jsonName": null,
+          "type": "TKey",
+          "typeSimple": "TKey",
+          "isRequired": false
+        },
+        {
+          "name": "DisplayName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        }
+      ]
+    },
+    "Crm.Contracts.GetContractsInput": {
+      "baseType": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "FilterText",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        },
+        {
+          "name": "OperatorName",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": true
+        },
+        {
+          "name": "SeasonMin",
+          "jsonName": null,
+          "type": "System.Int?",
+          "typeSimple": "number?",
+          "isRequired": true
+        },
+        {
+          "name": "SeasonMax",
+          "jsonName": null,
+          "type": "System.Int?",
+          "typeSimple": "number?",
+          "isRequired": true
+        },
+        {
+          "name": "IsEnabledAgent",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRequired": true
+        },
+        {
+          "name": "IsEnabledOperator",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRequired": true
+        }
+      ]
+    },
+    "Crm.Contracts.ContractDto": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "OperatorName",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Season",
+          "jsonName": null,
+          "type": "System.Int",
+          "typeSimple": "number",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "IsEnabledAgent",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "IsEnabledOperator",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        }
+      ]
+    },
+    "Crm.Contracts.ContractCreateDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "OperatorName",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Season",
+          "jsonName": null,
+          "type": "System.Int",
+          "typeSimple": "number",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "IsEnabledAgent",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "IsEnabledOperator",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        }
+      ]
+    },
+    "Crm.Contracts.ContractUpdateDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "OperatorName",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Season",
+          "jsonName": null,
+          "type": "System.Int",
+          "typeSimple": "number",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "IsEnabledAgent",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "IsEnabledOperator",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto": {
+      "baseType": "Volo.Abp.Application.Dtos.PagedResultRequestDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Sorting",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.PagedResultRequestDto": {
+      "baseType": "Volo.Abp.Application.Dtos.LimitedResultRequestDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "SkipCount",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.LimitedResultRequestDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "DefaultMaxResultCount",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false
+        },
+        {
+          "name": "MaxMaxResultCount",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false
+        },
+        {
+          "name": "MaxResultCount",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.PagedResultDto<T0>": {
+      "baseType": "Volo.Abp.Application.Dtos.ListResultDto<T>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "T"
+      ],
+      "properties": [
+        {
+          "name": "TotalCount",
+          "jsonName": null,
+          "type": "System.Int64",
+          "typeSimple": "number",
+          "isRequired": false
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.ListResultDto<T0>": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "T"
+      ],
+      "properties": [
+        {
+          "name": "Items",
+          "jsonName": null,
+          "type": "[T]",
+          "typeSimple": "[T]",
+          "isRequired": false
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.FullAuditedEntityDto<T0>": {
+      "baseType": "Volo.Abp.Application.Dtos.AuditedEntityDto<TPrimaryKey>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TPrimaryKey"
+      ],
+      "properties": [
+        {
+          "name": "IsDeleted",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false
+        },
+        {
+          "name": "DeleterId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "DeletionTime",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.AuditedEntityDto<T0>": {
+      "baseType": "Volo.Abp.Application.Dtos.CreationAuditedEntityDto<TPrimaryKey>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TPrimaryKey"
+      ],
+      "properties": [
+        {
+          "name": "LastModificationTime",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "LastModifierId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.CreationAuditedEntityDto<T0>": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<TPrimaryKey>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TPrimaryKey"
+      ],
+      "properties": [
+        {
+          "name": "CreationTime",
+          "jsonName": null,
+          "type": "System.DateTime",
+          "typeSimple": "string",
+          "isRequired": false
+        },
+        {
+          "name": "CreatorId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.EntityDto<T0>": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": [
+        "TKey"
+      ],
+      "properties": [
+        {
+          "name": "Id",
+          "jsonName": null,
+          "type": "TKey",
+          "typeSimple": "TKey",
+          "isRequired": false
+        }
+      ]
+    },
+    "Volo.Abp.Application.Dtos.EntityDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": []
+    },
+    "Crm.Users.AppUserDto": {
+      "baseType": "Volo.Abp.Identity.IdentityUserDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": []
+    },
+    "Volo.Abp.Identity.IdentityUserDto": {
+      "baseType": "Volo.Abp.Application.Dtos.ExtensibleEntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "TenantId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "UserName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        },
+        {
+          "name": "Email",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        },
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        },
+        {
+          "name": "Surname",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        },
+        {
+          "name": "EmailConfirmed",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false
+        },
+        {
+          "name": "PhoneNumber",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        },
+        {
+          "name": "PhoneNumberConfirmed",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false
+        },
+        {
+          "name": "SupportTwoFactor",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false
+        },
+        {
+          "name": "LockoutEnabled",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false
+        },
+        {
+          "name": "IsLockedOut",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false
+        },
+        {
+          "name": "ConcurrencyStamp",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        }
+      ]
+    },
+    "Crm.Clients.GetClientsInput": {
+      "baseType": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "FilterText",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        },
+        {
+          "name": "Title",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "FirstName",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": true
+        },
+        {
+          "name": "SecondName",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": true
+        },
+        {
+          "name": "Gender",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "ClientDOBMin",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "ClientDOBMax",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "AgePolicy",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "Email",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "EmailConfirmed",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRequired": false
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "Nacionality",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "State",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "ZipCode",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "City",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "CellPhone",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "CellPhoneConfirmed",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRequired": false
+        },
+        {
+          "name": "DocumentType",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "DocumentNo",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "IssueDateMin",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "IssueDateMax",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "ExpirationMin",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "ExpirationMax",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "MailingList",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRequired": true
+        }
+      ]
+    },
+    "Crm.Clients.ClientDto": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Title",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "FirstName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "SecondName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Gender",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "ClientDOB",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "AgePolicy",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Email",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "EmailConfirmed",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Nacionality",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "State",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "ZipCode",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "City",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "CellPhone",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "CellPhoneConfirmed",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentType",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentNo",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "IssueDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Expiration",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "MailingList",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        }
+      ]
+    },
+    "Crm.Clients.ClientCreateDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Title",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "FirstName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "SecondName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Gender",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "ClientDOB",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "AgePolicy",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Email",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "EmailConfirmed",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Nacionality",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "State",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "ZipCode",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "City",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "CellPhone",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "CellPhoneConfirmed",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentType",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentNo",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "IssueDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Expiration",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "MailingList",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        }
+      ]
+    },
+    "Crm.Clients.ClientUpdateDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Title",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "FirstName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "SecondName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Gender",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "ClientDOB",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "AgePolicy",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Email",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "EmailConfirmed",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Nacionality",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "State",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "ZipCode",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "City",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "CellPhone",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "CellPhoneConfirmed",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentType",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentNo",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "IssueDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Expiration",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "MailingList",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        }
+      ]
+    },
+    "Crm.Passengers.GetPassengersInput": {
+      "baseType": "Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "FilterText",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false
+        },
+        {
+          "name": "Reservation",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": true
+        },
+        {
+          "name": "ReservationDetail",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": true
+        },
+        {
+          "name": "ReservationHolder",
+          "jsonName": null,
+          "type": "System.Bool?",
+          "typeSimple": "boolean?",
+          "isRequired": true
+        },
+        {
+          "name": "Title",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "FirstName",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": true
+        },
+        {
+          "name": "LastName",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": true
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "AgePolicyDetail",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": true
+        },
+        {
+          "name": "PassengerDOBMin",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "PassengerDOBMax",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "DocumentType",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "DocumentNo",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "IssueDateMin",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "IssueDateMax",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "ExpirationMin",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "ExpirationMax",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "PassengerNote",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRequired": false
+        },
+        {
+          "name": "ClientNoMin",
+          "jsonName": null,
+          "type": "System.Int?",
+          "typeSimple": "number?",
+          "isRequired": true
+        },
+        {
+          "name": "ClientNoMax",
+          "jsonName": null,
+          "type": "System.Int?",
+          "typeSimple": "number?",
+          "isRequired": true
+        },
+        {
+          "name": "Reduction",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": true
+        }
+      ]
+    },
+    "Crm.Passengers.PassengerDto": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Reservation",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "ReservationDetail",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "ReservationHolder",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Title",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "FirstName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "LastName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "AgePolicyDetail",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "PassengerDOB",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentType",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentNo",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "IssueDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Expiration",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "PassengerNote",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "ClientNo",
+          "jsonName": null,
+          "type": "System.Int",
+          "typeSimple": "number",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Reduction",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        }
+      ]
+    },
+    "Crm.Passengers.PassengerCreateDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Reservation",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "ReservationDetail",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "ReservationHolder",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Title",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "FirstName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "LastName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "AgePolicyDetail",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "PassengerDOB",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentType",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentNo",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "IssueDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Expiration",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "PassengerNote",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "ClientNo",
+          "jsonName": null,
+          "type": "System.Int",
+          "typeSimple": "number",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Reduction",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        }
+      ]
+    },
+    "Crm.Passengers.PassengerUpdateDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Reservation",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "ReservationDetail",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "ReservationHolder",
+          "jsonName": null,
+          "type": "System.Bool",
+          "typeSimple": "boolean",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Title",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "FirstName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "LastName",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Country",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "AgePolicyDetail",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "PassengerDOB",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentType",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "DocumentNo",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "IssueDate",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "Expiration",
+          "jsonName": null,
+          "type": "System.DateTime?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "PassengerNote",
+          "jsonName": null,
+          "type": "System.String?",
+          "typeSimple": "string?",
+          "isRef": false,
+          "isRequired": false
+        },
+        {
+          "name": "ClientNo",
+          "jsonName": null,
+          "type": "System.Int",
+          "typeSimple": "number",
+          "isRef": false,
+          "isRequired": true
+        },
+        {
+          "name": "Reduction",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRef": false,
+          "isRequired": true
+        }
+      ]
+    }
+  }
+}

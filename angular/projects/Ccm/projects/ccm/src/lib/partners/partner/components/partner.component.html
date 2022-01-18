@@ -1,0 +1,482 @@
+<abp-page [title]="'Ccm::Partners' | abpLocalization">
+  <abp-page-toolbar-container class="col">
+    <div class="text-lg-end pt-2">
+      <button
+        *abpPermission="'Ccm.Partners.Create'"
+        class="btn btn-primary btn-sm"
+        type="button"
+        (click)="create()"
+      >
+        <i class="fa fa-plus me-1" aria-hidden="true"></i>
+        {{ 'Ccm::NewPartner' | abpLocalization }}
+      </button>
+    </div>
+  </abp-page-toolbar-container>
+
+  <abp-advanced-entity-filters localizationSourceName="Ccm" [list]="list">
+    <abp-advanced-entity-filters-form>
+      <form #filterForm (keyup.enter)="list.get()">
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="partnerNameFilter">
+                {{ 'Ccm::PartnerName' | abpLocalization }}
+              </label>
+
+              <input
+                id="partnerNameFilter"
+                class="form-control"
+                [(ngModel)]="filters.partnerName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="addressFilter">
+                {{ 'Ccm::Address' | abpLocalization }}
+              </label>
+
+              <input
+                id="addressFilter"
+                class="form-control"
+                [(ngModel)]="filters.address"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="taxNoFilter">
+                {{ 'Ccm::TaxNo' | abpLocalization }}
+              </label>
+
+              <input
+                id="taxNoFilter"
+                class="form-control"
+                [(ngModel)]="filters.taxNo"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="bookingEmailFilter">
+                {{ 'Ccm::BookingEmail' | abpLocalization }}
+              </label>
+
+              <input
+                id="bookingEmailFilter"
+                class="form-control"
+                [(ngModel)]="filters.bookingEmail"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="bookingCellPhoneFilter">
+                {{ 'Ccm::BookingCellPhone' | abpLocalization }}
+              </label>
+
+              <input
+                id="bookingCellPhoneFilter"
+                class="form-control"
+                [(ngModel)]="filters.bookingCellPhone"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="bookingEmailConfirmedFilter">
+                  {{ 'Ccm::BookingEmailConfirmed' | abpLocalization }}
+              </label>
+
+              <select
+                name="bookingEmailConfirmed"
+                id="bookingEmailConfirmedFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.bookingEmailConfirmed"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="bookingPhoneConfirmedFilter">
+                  {{ 'Ccm::BookingPhoneConfirmed' | abpLocalization }}
+              </label>
+
+              <select
+                name="bookingPhoneConfirmed"
+                id="bookingPhoneConfirmedFilter"
+                class="form-select form-control"
+                [(ngModel)]="filters.bookingPhoneConfirmed"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="list.get()"
+              >
+                <option [ngValue]=""></option>
+                <option [ngValue]="true">{{ 'AbpUi::Yes' | abpLocalization }}</option>
+                <option [ngValue]="false">{{ 'AbpUi::No' | abpLocalization }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="emailFilter">
+                {{ 'Ccm::Email' | abpLocalization }}
+              </label>
+
+              <input
+                id="emailFilter"
+                class="form-control"
+                [(ngModel)]="filters.email"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="phoneFilter">
+                {{ 'Ccm::Phone' | abpLocalization }}
+              </label>
+
+              <input
+                id="phoneFilter"
+                class="form-control"
+                [(ngModel)]="filters.phone"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+          <div class="col-12 col-sm-auto">
+            <div class="mb-3">
+              <label class="form-label" for="countryNameFilter">
+                {{ 'Ccm::Country' | abpLocalization }}
+              </label>
+              <abp-lookup-select
+                cid="countryNameFilter"
+                [getFn]="service.getCountryLookup"
+                [(ngModel)]="filters.countryName"
+                [ngModelOptions]="{ standalone: true }"
+              ></abp-lookup-select>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-auto align-self-end mb-3">
+            <div class="row">
+              <div class="col-6 col-sm-auto d-grid">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  (click)="clearFilters()"
+                >
+                  <span>{{ 'AbpUi::Clear' | abpLocalization }}</span>
+                </button>
+              </div>
+              <div class="col-6 col-sm-auto d-grid">
+                <button type="button" class="btn btn-primary" (click)="list.get()">
+                  <span>{{ 'AbpUi::Refresh' | abpLocalization }}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </abp-advanced-entity-filters-form>
+  </abp-advanced-entity-filters>
+
+  <div class="card">
+    <div class="card-body">
+      <ngx-datatable [rows]="data.items" [count]="data.totalCount" [list]="list" default>
+        <ngx-datatable-column
+          [name]="'AbpUi::Actions' | abpLocalization"
+          [maxWidth]="150"
+          [width]="150"
+          [sortable]="false"
+        >
+          <ng-template let-row="row" let-i="rowIndex" ngx-datatable-cell-template>
+            <div ngbDropdown container="body" class="d-inline-block">
+              <button
+                class="btn btn-primary btn-sm dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                ngbDropdownToggle
+              >
+                <i class="fa fa-cog me-1" aria-hidden="true"></i>
+                {{ 'AbpUi::Actions' | abpLocalization }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.Partners.Edit'"
+                  (click)="update(row)"
+                >
+                  {{ 'AbpUi::Edit' | abpLocalization }}
+                </button>
+
+                <button
+                  ngbDropdownItem
+                  *abpPermission="'Ccm.Partners.Delete'"
+                  (click)="delete(row)"
+                >
+                  {{ 'AbpUi::Delete' | abpLocalization }}
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::PartnerName' | abpLocalization }}" prop="partner.partnerName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner.partnerName }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Address' | abpLocalization }}" prop="partner.address">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner.address }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::TaxNo' | abpLocalization }}" prop="partner.taxNo">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner.taxNo }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::BookingEmail' | abpLocalization }}" prop="partner.bookingEmail">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner.bookingEmail }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::BookingCellPhone' | abpLocalization }}" prop="partner.bookingCellPhone">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner.bookingCellPhone }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::BookingEmailConfirmed' | abpLocalization }}" prop="partner.bookingEmailConfirmed">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.partner.bookingEmailConfirmed" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::BookingPhoneConfirmed' | abpLocalization }}" prop="partner.bookingPhoneConfirmed">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <ng-template [ngIf]="row.partner.bookingPhoneConfirmed" [ngIfThen]="yes" [ngIfElse]="no"></ng-template>
+
+            <ng-template #yes>
+              <div class="text-center text-success">
+                <span [title]="'AbpUi::Yes' | abpLocalization">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+
+            <ng-template #no>
+              <div class="text-center text-danger">
+                <span [title]="'AbpUi::No' | abpLocalization">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </span>
+              </div>
+            </ng-template>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Email' | abpLocalization }}" prop="partner.email">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner.email }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Phone' | abpLocalization }}" prop="partner.phone">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.partner.phone }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="{{ 'Ccm::Country' | abpLocalization }}" prop="country.countryName">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{ row.country?.countryName }}
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</abp-page>
+
+<abp-modal [busy]="isModalBusy" [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>
+      {{ (selected ? 'AbpUi::Edit' : 'Ccm::NewPartner') | abpLocalization }}
+    </h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+    <form [formGroup]="form" (ngSubmit)="submitForm()" validateOnSubmit>
+      <div class="mt-2 fade-in-top">
+        <div class="mb-3">
+          <label class="form-label" for="partner-partner-name">
+            {{ 'Ccm::PartnerName' | abpLocalization }} *
+          </label>
+
+          <input
+            id="partner-partner-name"
+            formControlName="partnerName"
+            class="form-control"
+            maxlength="100"
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="partner-address">
+            {{ 'Ccm::Address' | abpLocalization }} *
+          </label>
+
+          <textarea
+            id="partner-address"
+            formControlName="address"
+            class="form-control"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="partner-country-name">
+            {{ 'Ccm::Country' | abpLocalization }} *
+          </label>
+
+          <abp-lookup-select
+            cid="partner-country-name"
+            formControlName="countryName"
+            [getFn]="service.getCountryLookup"
+          ></abp-lookup-select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="partner-tax-no">
+            {{ 'Ccm::TaxNo' | abpLocalization }} *
+          </label>
+
+          <input
+            id="partner-tax-no"
+            formControlName="taxNo"
+            class="form-control"
+            maxlength="50"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="partner-booking-email">
+            {{ 'Ccm::BookingEmail' | abpLocalization }} *
+          </label>
+
+          <input
+            id="partner-booking-email"
+            formControlName="bookingEmail"
+            class="form-control"
+            maxlength="256"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="partner-booking-cell-phone">
+            {{ 'Ccm::BookingCellPhone' | abpLocalization }} *
+          </label>
+
+          <input
+            id="partner-booking-cell-phone"
+            formControlName="bookingCellPhone"
+            class="form-control"
+            maxlength="16"
+          />
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="partner-booking-email-confirmed"
+            formControlName="bookingEmailConfirmed"
+            class="form-check-input"
+          />
+
+          <label
+            for="partner-booking-email-confirmed"
+            class="form-check-label"
+          >
+              {{ 'Ccm::BookingEmailConfirmed' | abpLocalization }} 
+          </label>
+        </div>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="partner-booking-phone-confirmed"
+            formControlName="bookingPhoneConfirmed"
+            class="form-check-input"
+          />
+
+          <label
+            for="partner-booking-phone-confirmed"
+            class="form-check-label"
+          >
+              {{ 'Ccm::BookingPhoneConfirmed' | abpLocalization }} 
+          </label>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="partner-email">
+            {{ 'Ccm::Email' | abpLocalization }} 
+          </label>
+
+          <input
+            id="partner-email"
+            formControlName="email"
+            class="form-control"
+            maxlength="256"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="partner-phone">
+            {{ 'Ccm::Phone' | abpLocalization }} 
+          </label>
+
+          <input
+            id="partner-phone"
+            formControlName="phone"
+            class="form-control"
+            maxlength="16"
+          />
+        </div>
+        
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ 'AbpUi::Cancel' | abpLocalization }}
+    </button>
+
+    <abp-button iconClass="fa fa-check" (click)="submitForm()" [disabled]="form?.invalid">
+      {{ 'AbpUi::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>
